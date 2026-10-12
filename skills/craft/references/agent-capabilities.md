@@ -12,9 +12,9 @@ Codex reads `~/.agents/skills`. Its `request_user_input` tool does not run under
 
 Kimi Code reads `~/.agents/skills`. Its question tool is denied in Never Ask mode and in headless mode. `kimi -p` rejects `--auto`, so the auto preference applies only to interactive runs. A subagent can keep the caller's model with `model: primary`, but that option needs a configured secondary model.
 
-Command Code reads `~/.commandcode/skills`. Its `ask_user_question` tool is withheld under `-p`, and enabling it picks the first option, so an unattended run must not enable it. Its `--yolo` flag removes every check. Its commit trailer is on by default. Its goal pauses after three rejected checks and reports a pause, not a finish.
+Command Code reads `~/.commandcode/skills`. Its `ask_user_question` tool is withheld under `-p`, and enabling it picks the first option, so an unattended run must not enable it. Its `--yolo` flag removes every check. Its commit trailer is on by default. Its goal pauses after three rejected checks and reports a pause, not a finish. Once about 42 skills are installed, it stops sending skill descriptions to the model and sends only names. The trigger for craft therefore has to appear in the instruction file as well as in the skill.
 
-Qwen Code reads `~/.qwen/skills`. In headless mode its question tool returns an error, so the question goes in the report. A headless run needs `--approval-mode yolo` or an allow list, or each confirmation-gated tool fails. It adds a commit trailer by default, and `gitCoAuthor.commit` turns that off. Auto-compaction starts at 85% of the window.
+Qwen Code reads `~/.qwen/skills`. In headless mode its question tool returns an error, so the question goes in the report. A headless run needs `--approval-mode yolo` or an allow list, or each confirmation-gated tool fails. It adds a commit trailer by default, and `gitCoAuthor.commit` turns that off. It also adds a "Generated with Qwen Code" line to pull request bodies made by `gh pr create`, and a git note on commits. Auto-compaction starts at 85% of the window.
 
 Gemini CLI reads `~/.gemini/skills` and `~/.agents/skills`. Its ask tool is `ask_user`, and headless behavior is not documented. Google announced that individual subscribers lose Gemini CLI access on June 18, 2026, so check which Gemini product is in use before writing Gemini rules.
 

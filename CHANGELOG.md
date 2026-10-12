@@ -2,6 +2,15 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.2.0 - 2026-10-12
+
+Subject: craft 1.2.0 records how Command Code and Qwen Code differ
+
+Command Code stops sending skill descriptions once a catalog grows past about 42 skills, so the trigger needs to appear in the instruction file too. Qwen Code adds a line to pull request bodies made by `gh pr create`, on top of its commit trailer.
+
+- `references/agent-capabilities.md` covers both differences, with the attribution settings that turn them off.
+- The short form for instruction files now names the trigger and no longer points at a Claude-only path.
+
 ## 1.1.0 - 2026-10-12
 
 Subject: craft 1.1.0 checks its own rules at release and covers headless runs
