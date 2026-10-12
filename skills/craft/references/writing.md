@@ -4,12 +4,12 @@ Read this before you ship text that leaves the machine: docs, reports, commit me
 
 ## The checks
 
-Run the project's prose lint on the text before it ships, when one exists. Point at the script with a variable, not a fixed path:
+Run the lint before the text ships. It is in this skill's `scripts` folder, so run it from the skill folder, and point at a file or a string:
 
-    python3 "$AI_TELL_LINT" FILE      # exit 0 is clean
-    python3 "$AI_TELL_LINT" --text "one string"
+    python3 scripts/ai-tell-lint.py FILE      # exit 0 is clean
+    python3 scripts/ai-tell-lint.py --text "one string"
 
-If no lint is available, say so in the report and check the rules below by reading. A flagged word that reads naturally in its context stays. The lint finds candidates; you judge them. Do not reword a sentence just to clear a word the lint dislikes when the sentence already says the thing plainly.
+If the script cannot run, say so in the report and check the rules below by reading. A flagged word that reads naturally in its context stays. The lint finds candidates; you judge them. Do not reword a sentence just to clear a word the lint dislikes when the sentence already says the thing plainly.
 
 Keep the banned vocabulary inside inline code when you quote it, so a lint that skips code spans does not flag your own rule list.
 

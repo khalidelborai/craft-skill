@@ -2,6 +2,16 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.3.2 - 2026-10-12
+
+Subject: craft 1.3.2 ships its prose lint and gates releases on quality
+
+The prose lint was not in the public skill, so the skill could not run its own check. It now ships in `scripts/`, and the writing reference points at it from the skill folder.
+
+- `scripts/ai-tell-lint.py` is a portable copy. The owner-specific ledger path and the rule-file message are removed.
+- The A/B gate and the release gate judge quality. Cost, turns and tokens are recorded and reported, and they do not block a release. A faster or cheaper run with worse work does not count as an improvement.
+- Twelve paired Claude runs on this content pass every task that the previous content passed.
+
 ## 1.3.1 - 2026-10-12
 
 Subject: craft 1.3.1 fixes three flag claims and records the commit-trailer test
