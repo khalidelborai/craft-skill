@@ -2,6 +2,15 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.3.1 - 2026-10-12
+
+Subject: craft 1.3.1 fixes three flag claims and records the commit-trailer test
+
+Three flags in the capability reference did not match the installed CLIs. Codex's unattended run sets the approval policy with a config key, because `codex exec` has no approval flag. Qwen's installed version lists no approval flag, so the earlier one is removed. Claude's attribution setting is confirmed against this machine's settings.
+
+- Text in the skill cannot remove a commit trailer that the harness adds by default. In a test, Claude Code added a co-author line to every commit, with and without the skill. The attribution setting removed it, so the git reference now names the setting.
+- Twelve paired runs on the candidate pass every task that the previous content passed, and the commit task passes on all three samples where the old content failed all three. The cost difference across the four tasks is flat.
+
 ## 1.3.0 - 2026-10-12
 
 Subject: craft 1.3.0 corrects the Copilot, Gemini and Devin Desktop entries

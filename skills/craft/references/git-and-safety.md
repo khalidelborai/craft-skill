@@ -17,6 +17,8 @@ Read this before you stage, commit, push, merge, rewrite history, remove a workt
 - The subject states the behavior that changed, in the imperative mood, with a scope when the repo uses scopes.
 - The body records the symptom, the measured root cause, the fix, the limits you chose not to change, and the proof.
 - Do not add co-author lines or tool attribution unless the repo's policy or the run's brief asks for them. Before you assume a trailer exists or is absent, check the harness's attribution setting, because harnesses differ: some add a trailer by default and some can be configured to add one. When a harness supplies an attribution line, follow the repo's policy.
+
+Text in this skill cannot remove a trailer that the harness adds by default. In a controlled test, Claude Code added a co-author line to every commit, with and without the skill loaded. Setting `attribution.commit` to an empty string in the harness settings removed it. Where a harness offers such a setting, set it and check the last commit message.
 - Commit or push only when the brief asks. An unattended run commits locally and never pushes.
 - Stop before committing to a protected branch. Create a feature branch first.
 - Never stage secret-like paths: `.env` files, `credentials` files, `*.pem`, `*.key`, and anything the repo's ignore rules were written to hide. If one is staged, unstage it and tell the owner.

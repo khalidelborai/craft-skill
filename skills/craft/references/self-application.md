@@ -24,4 +24,6 @@ A release proves the checks above on the candidate files. It does not prove that
 
 ## When a rule changes
 
+A change that adds text to a file the agent always loads, such as the short form in an instruction file or a section of SKILL.md that every run reads, ships only with a paired run. The paired run uses the same task on the same harness, once with the text and once without it. The change ships when success holds and the cost does not rise. Context files help agents follow non-standard practices, but a repository overview does not improve results, so add only the rules an agent cannot infer from the code.
+
 A change to a rule comes with its check in the same change. If no machine check can cover it, name the reviewer who checks it, and say so in the release notes. A rule that weakens another rule, or raises a budget, needs an explicit owner decision recorded with its reason.
