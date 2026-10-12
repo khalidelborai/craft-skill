@@ -10,6 +10,8 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 ## Done means the goal
 
+This skill applies its own rules to itself. Before a change to this skill ships, each rule has its check run on the final files. Read `references/self-application.md` for the checks.
+
 Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in the brief and identify required project sources; workers read those sources before acting. Reviewers distinguish missing context from ignored instructions.
 
 Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric acceptance measures before tuning; never invent or lower a target after seeing results. Partial progress or a missing decisive check leaves the outcome incomplete or unverified.
@@ -99,7 +101,7 @@ Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's
 
 ## Autonomous and goal runs
 
-When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition first, keep a run log, and decide everything the owner's recorded decisions and taste settle, recording each decision with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, and no safe path removes the risk. A guard that prompts is a gate too. Procedure, decision order and the final report: `references/autonomy.md`.
+When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition first, keep a run log, and decide everything the owner's recorded decisions and taste settle, recording each decision with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, and no safe path removes the risk. A guard that prompts is a gate too. Procedure, decision order and the final report: `references/autonomy.md`. Harness differences that change these rules are in `references/agent-capabilities.md`.
 
 ## Red flags that mean stop
 

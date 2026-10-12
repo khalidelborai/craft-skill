@@ -2,6 +2,21 @@
 
 Read this when you dispatch work to another agent, review a branch, act on review feedback, or write an executable plan. The core rules live in SKILL.md under Plans and decisions and Review. This file gives the mechanics. Where a source skill conflicted with those core rules, the core rule wins and the conflict is recorded in the owner's decision list.
 
+## Subagent rules
+
+These rules hold for any subagent, whatever the harness. The harness details differ, so check them when you dispatch.
+
+1. A subagent gets one task and a brief that holds everything it needs. It does not get the session history.
+2. Assume the subagent cannot call the question tool. The brief tells it to park each question in its report and stop only at a gate.
+3. Name the model in the brief when the result depends on it. Some harnesses let a child inherit the parent's model, some need an explicit override, and some let the parent choose per dispatch. Find out which one the harness uses before you rely on it.
+4. Give each subagent the permissions its job needs. A reviewer gets read-only tools and does not edit or switch branches. An unattended worker needs allow rules for its routine tools, or its first prompt stops the run.
+5. Run subagents in parallel only when their file sets and shared state do not overlap. Keep the number of concurrent children within the harness's limit. Do not assume a limit; check it.
+6. Do not nest review. A reviewer does not spawn reviewers and does not hand part of the review to another agent.
+7. Use a fresh subagent for each task. Resume a subagent only for a fix round on the same task, because it still holds the context of its own change.
+8. Treat a subagent's "done" as a claim. Check its diff or artifact before you repeat the claim, and spot-check the result.
+9. Wait in bounded intervals and read the report file. Absence of a report is not proof of failure. Stop or retry a subagent only on positive evidence.
+10. Commits made by a subagent follow the git rules. An unattended subagent commits locally and never pushes.
+
 ## Dispatching work
 
 A dispatch brief is a contract. It carries:
@@ -12,6 +27,8 @@ A dispatch brief is a contract. It carries:
 - the path where the worker writes its report.
 
 A brief describes one task. It does not paste the session history, the earlier discussion or the reasoning behind the plan, unless the worker needs a specific fact from it.
+
+The brief tells the worker how to stop. Many workers cannot call the question tool, so the brief says to park a question in the report and stop only at a gate. Name the model in the brief when it matters, because some harnesses let a child inherit the parent's model.
 
 Set the model explicitly on every dispatch. A worker that hit a failure gets a changed brief or a stronger model before a retry. The same model with the same brief fails the same way.
 

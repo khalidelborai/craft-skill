@@ -6,7 +6,9 @@ Use this file for any run where nobody reads each turn: a goal run with a comple
 
 `/goal <condition>` (up to 4,000 characters) sets a goal, and a model evaluator decides when it is met. A new goal replaces the active one. `/goal` with no argument shows the status, and `/goal clear` (or `stop`, `off`, `reset`, `none`, `cancel`) removes it. The evaluator also ends the loop when it judges the goal impossible, when a turn fails on an error that needs a fix, or when it sees no progress for several turns in a row. A turn or time limit written into the condition is judged by the evaluator, not enforced. `claude -p "/goal ..."` runs the loop in one invocation.
 
-A goal does not change the permission mode. For an unattended run, use auto mode, or the prompts will stop the run at a permission check.
+A goal does not change the permission mode, and it does not lift per-tool prompts. For an unattended run, use the harness's auto mode or a permission setting that allows the run's routine tools, or a prompt will stop the run at a permission check.
+
+A rule that must hold at a hard checkpoint, such as "confirm before a push", is enforced by the harness only when the harness has an ask rule for it. Where the harness supports one, add that rule. Where it does not, the rule still binds the agent by judgment, and the run reports that it was not enforced.
 
 1. Restate the goal and its completion condition in the first step. Write both to the run log. Use the log path from the brief. If the brief names none, create `RUN.md` at the repo root (or in the run's worktree) and keep it out of commits.
 2. Treat the condition as the stop test. Split it into required outcomes, and give each one an acceptance check before you start (see the Prove section of SKILL.md).
@@ -49,6 +51,7 @@ Everything else is not a gate. Naming, formatting, tool choice, order of work, s
 - The rest of the work depends on the answer: park only the dependent items, finish everything else first, and then ask one question. Put the recommended option first and state exactly what is parked and what it blocks.
 - Never ask a question you can answer from the decision order above.
 - Ask only through the question tool (AskUserQuestion when it is available), with the recommended option first. A question written inside a reply is not an ask: nobody answers it, and the run stalls on it.
+- Some harnesses have no question tool in headless or non-interactive mode, and some workers cannot call it at all. In those runs, park the item, finish everything else, and put the question with its recommended option in the final report. The report is then the ask.
 
 ## Keep the run visible
 
