@@ -16,15 +16,15 @@ Command Code reads `~/.commandcode/skills`. Its `ask_user_question` tool is with
 
 Qwen Code reads `~/.qwen/skills`. In headless mode its question tool returns an error, so the question goes in the report. A headless run needs `--approval-mode yolo` or an allow list, or each confirmation-gated tool fails. It adds a commit trailer by default, and `gitCoAuthor.commit` turns that off. It also adds a "Generated with Qwen Code" line to pull request bodies made by `gh pr create`, and a git note on commits. Auto-compaction starts at 85% of the window.
 
-Gemini CLI reads `~/.gemini/skills` and `~/.agents/skills`. Its ask tool is `ask_user`, and headless behavior is not documented. Google announced that individual subscribers lose Gemini CLI access on June 18, 2026, so check which Gemini product is in use before writing Gemini rules.
+Gemini CLI reads `~/.gemini/skills` and `~/.agents/skills`. Its ask tool is `ask_user`, and headless behavior is not documented. Its subagents take a model setting that defaults to inheriting the parent's model, so a dispatch names its model when the result depends on it. Google announced that individual subscribers lose Gemini CLI access on June 18, 2026, so check which Gemini product is in use before writing Gemini rules.
 
 Cursor reads `.agents/skills` and `.cursor/skills`. Its subagents take a `readonly` flag. No ask tool is documented. Cloud agents do not load user-level skills, so a brief must carry the rules. Project rules must be `.mdc` files. Forum reports describe a `Co-authored-by` trailer with an opt-out, and the docs do not confirm it.
 
-GitHub Copilot CLI reads `.github/skills`, `.agents/skills` and `~/.copilot/skills`. No ask tool is documented. Its autopilot mode stops when the agent judges the task done, when a problem blocks progress, or at the continuation limit. Its `--allow-all` flag grants every tool. Its instruction file is `.github/copilot-instructions.md`.
+GitHub Copilot CLI reads `.github/skills`, `.agents/skills` and `~/.copilot/skills`. It has an ask tool, and `--no-ask-user` turns it off, so a headless run must pass that flag and park questions in the report. `--model` picks the model for each launch, so a dispatch names its model on the command line. Autopilot stops when the agent judges the task done, when a problem blocks progress, or at the limit set by `--max-autopilot-continues`. Its `--allow-all` flag grants every tool. Its instruction file is `.github/copilot-instructions.md`.
 
-OpenCode reads `~/.config/opencode/skills` and `.agents/skills`. Its question tool is documented for interactive use only. Its `--auto` flag approves permissions that are not explicitly denied. Subagents run through the `task` tool and take a model setting.
+OpenCode reads `~/.config/opencode/skills` and `.agents/skills`. Its question tool is documented for interactive use only. Its `--auto` flag approves permissions that are not explicitly denied, so a deny rule still stops a call under `--auto`. Subagents run through the `task` tool and take a model setting.
 
-Devin Desktop, the renamed Windsurf, reads `.devin/rules` and falls back to `.windsurf/rules`. Its Turbo mode runs every command except those on the deny list. Its hooks can block a command. Its question tool is not documented.
+Devin Desktop, the renamed Windsurf, reads skills from `.devin/skills`, and `.windsurf/skills` is a legacy fallback. Its workspace rules file has a size limit of 12,000 characters, so the full SKILL.md installs as a skill and not as a rule. The short form fits in a rule. Its Turbo mode runs every command except those on the deny list. Its hooks can block a command. Its question tool is not documented.
 
 Droid reads skills and its hooks can block a tool call. Subagents cannot ask the user. `droid exec` starts read-only, and an unattended run needs `--auto medium` or higher.
 

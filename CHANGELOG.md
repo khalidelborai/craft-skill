@@ -2,6 +2,16 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.3.0 - 2026-10-12
+
+Subject: craft 1.3.0 corrects the Copilot, Gemini and Devin Desktop entries
+
+Checking the Copilot, Gemini, OpenCode, Cursor and Devin Desktop sources showed that the first draft of the capability reference was wrong on three points: Copilot has an ask tool and a per-launch model flag, Gemini subagents take a model setting, and Devin Desktop reads skills from `.devin/skills`.
+
+- Copilot's `--no-ask-user` and `--max-autopilot-continues` flags are now listed for headless runs.
+- OpenCode's `--auto` flag is described as skipping only actions that are not denied.
+- Devin Desktop's skill folder and the 12,000-character rule limit are now listed, so the full skill installs as a skill.
+
 ## 1.2.0 - 2026-10-12
 
 Subject: craft 1.2.0 records how Command Code and Qwen Code differ
