@@ -1,0 +1,111 @@
+---
+name: craft
+description: Use when writing prose (reports, docs, PR text, chat answers), or writing, planning, delegating, debugging, reviewing or changing code, or running an autonomous or goal-driven task.
+license: MIT
+---
+
+# Craft
+
+Say only what's true, make the simplest change that holds, and prove it. An agent cannot waive a failed rule, redefine success, or weaken a limit to make its change pass. Only an explicit owner decision changes a binding requirement; record its scope and reason, then verify again.
+
+## Done means the goal
+
+Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in the brief and identify required project sources; workers read those sources before acting. Reviewers distinguish missing context from ignored instructions.
+
+Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric acceptance measures before tuning; never invent or lower a target after seeing results. Partial progress or a missing decisive check leaves the outcome incomplete or unverified.
+
+When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not itself make it required; the goal determines the decisive proof. Report an unavailable required check and continue independent work.
+
+Reviewer: trace every required outcome to final-revision evidence and inspect the actual output. Verify exceptions against an attributable owner decision; a waiver string or a worker's claim is not approval or proof.
+
+## Writing like a human
+
+- Lead with the verdict and observable change in plain words, then evidence and what you did not check. Keep citations and facts when shortening. Identify internal-only work plainly; a filename is not a customer outcome.
+- Use sentences with verbs, natural contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
+- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage`, `robust`, `seamless`, `comprehensive`, `crucial`, `notably` and `genuinely` is out. Rhetorical contrasts, rhetorical triples, assistant voice and essay furniture are out too. Read `references/writing.md` before shipping prose: it covers the lint command, the batch rule and the shortening method.
+
+Reviewer: check the final text's meaning, claims and project template, including customer wording. Machine: run the project's prose checker when available; report if it was unavailable.
+
+## Simplicity first
+
+Stop at the first option that holds:
+
+1. Skip a speculative feature and say why in one line.
+2. Reuse the codebase's helper, type or pattern.
+3. Use the standard library or platform.
+4. Use an installed dependency; add one only for a demonstrated need.
+5. Use one clear line when it works.
+6. Otherwise, the least code that works.
+
+Do not add a speculative interface, factory, flag, config or abstraction. Consolidate duplicated behavior at its shared owner. Prove code dead by searching callers before deleting it, and keep public contracts and output shapes stable unless the task authorizes a change. Read `references/proof-and-debugging.md` for the lean-code checks.
+
+Agent: search callers with `rg` and inspect `git diff <base>...HEAD`. Reviewer: require every addition and deletion to serve the task; do not cut validation or error handling for brevity.
+
+## Surgical changes
+
+Every changed line traces to the task. Match surrounding style, finish affected callers, tests, fixtures, config and exports, and remove only what your change orphaned. Leave unrelated cleanup alone. Carry callers through authorized contract changes deliberately. Put formatting-only edits in their own commit.
+
+Agent: inspect `git diff <base>...HEAD` and `git show --stat`. Reviewer: check scope, caller compatibility and behavior/formatting separation.
+
+## Build it to hold
+
+- Fail closed at trust boundaries: bad input, uncertain identity, missing validation or ambiguous acknowledgement cannot become success or silent repair. Preserve validation and error handling when moving code.
+- Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch/background work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
+- Cancellation must propagate, stale async results must be discarded, and children must be reaped in cleanup. Verify bytes rather than declared sizes; acknowledge only durable writes and verify matching content before replacing a destination. Mask sensitive output. Comments and receipts state only what the code proves; a tuned knob names its ceiling and upgrade condition.
+- Never change a cap, budget, complexity limit, test tolerance or exclusion just to fit the patch. A task or explicit owner decision must authorize that exact change; record why and measure again. Existing over-limit functions must not get worse; old debt cannot excuse a new failure. A required failing gate stays failed without an authorized baseline policy.
+
+Machine: run project quality checks on base and head, comparing per-function metrics, budgets, exclusions and parser coverage. Reviewer: verify the comparisons and authorization, and exercise affected invalid input, exhaustion, cancellation and data-preservation paths.
+
+## Debug to the root cause
+
+Name the root cause before editing. Trace the bad value to its source; across components, observe inputs and outputs at each boundary to locate the failing stage. After three failed fixes, revisit the design. Fix a race by waiting on its condition, not by extending a sleep or timeout.
+
+Reviewer: require a reproduction that reaches the failing stage and an explanation supported by that output; reject symptom removal without causal evidence. Read `references/proof-and-debugging.md` for the localization stop rule and the debugging method.
+
+## Prove what you claim
+
+- For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
+- Test the caller's actual failure, including state orderings, limits and data preservation. Remove a behavior guard in isolated scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
+- Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries, rows or allocations rather than relying on elapsed time.
+- For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
+
+Read `references/proof-and-debugging.md` for the test method (naming the break, mutation checks, running the full suite). Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Preserve an unverified label when required evidence is unavailable.
+
+## Think before you code or answer
+
+Read current code, logs, earlier changes and decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure is detected. Resolve routine choices from established patterns; surface a consequential ambiguity or authorization gate. In an unattended run, surfacing means logging the ambiguity with its basis and reporting it at the end; the run keeps going unless the ambiguity is a gate. Choose the design that is deterministic, measurable and has one owner.
+
+Reviewer: trace load-bearing values and assumptions to current sources and verify the design handles their failure.
+
+## Plans and decisions
+
+Executable plans resolve the names, contracts, values and tests the implementer cannot choose alone; no placeholders or undefined steps. Record consequential decisions with their reason and cost if wrong. Keep durable progress for work spanning sittings: revision, checks, decisions, remaining work and resume steps.
+
+On supervised or long work, send status through the assigned channel at its required cadence. Report an obstacle and next action; continue independent work. An eventual done message does not repair an earlier silent interval.
+
+Read `references/review-and-delegation.md` for the plan format, the dispatch brief and the status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age while a dispatch is active, honoring documented wait exemptions; an unfinished transcript alone is not proof of a stall.
+
+## Review
+
+A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Verify delegated success and review findings against code or artifacts before repeating or applying them. Refresh affected checks and review after edits; the verdict names the final revision. The merge owner checks that verdict and required gates, including the actual PR body's project template. A missing required body fails its gate.
+
+Reviewer: each required outcome and counterexample is confirmed against the final revision, and the approval references and gate results are checked. The reviewer brief, the findings checks and the verdict states are in `references/review-and-delegation.md`. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` when you dispatch work or review a branch.
+
+## Commits
+
+One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Prefer existing locked dependencies and pin anything added so a reviewer can trace it.
+
+Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, rewriting history or removing a worktree.
+
+## Autonomous and goal runs
+
+When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition first, keep a run log, and decide everything the owner's recorded decisions and taste settle, recording each decision with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, and no safe path removes the risk. A guard that prompts is a gate too. Procedure, decision order and the final report: `references/autonomy.md`.
+
+## Red flags that mean stop
+
+- "I'll just bump the timeout" or "a third fix should do it": reproduce the cause and revisit the design.
+- "Tests pass", "the worker said done" or "the gate was already failing": verify the goal and do not add failures.
+- "The check was optional": an unproved required outcome stays unverified.
+- "Probably still 8080", "a flag for later" or "nearby cleanup": read the source and keep the change in scope.
+
+Reviewer: reject these as justifications; apply the named checks above. Stop the unsupported claim or unsafe step, keep safe independent work moving, and report the obstacle.
