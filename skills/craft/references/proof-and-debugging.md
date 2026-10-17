@@ -2,7 +2,7 @@
 
 Read this when you write or fix a test, prove a change works, or chase a bug. The core rules live in SKILL.md (Debug to the root cause, Prove what you claim). This file adds the methods behind them.
 
-Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
+Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; production query probes; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
 
 ## Name the break before the test
 
@@ -53,7 +53,7 @@ A file format with no test in the suite is untested. Say so in the report instea
 
 ## Skipped tests and the target runtime
 
-Green CI is not proof when the decisive tests were skipped. Read the skip count in the test output. If the tests that matter need a database or a broker, run them against a real instance with its connection string set. Lint and smoke-test on the runtime version the target runs, not the version on the developer's machine.
+Green CI is not proof when the decisive tests were skipped. Read the skip count in the test output. If the tests that matter need a database or a broker, run them against a real instance with its connection string set. Lint and smoke-test on the runtime version the target runs, not the version on the developer's machine. A test that skips for missing local data never ran in CI, so count the skips in CI's output too and give each test its own data.
 
 ## Local end-to-end listeners
 
@@ -85,6 +85,15 @@ A visibility rule applies to every surface that returns the same fields: list an
 3. A test that asserts the old exposure is the spec of the bug. Rewrite it to assert the new rule, and do not keep it as a regression baseline.
 
 A build hid "who acted" on one audit screen, and a second endpoint still returned the same fact. A test asserted that second endpoint's output, so the leak passed review.
+
+## Production query probes
+
+A staging database can differ from production in engine and version. One build ran MongoDB 7 on staging and DocumentDB 5.0 in production. Run each query that matters on the production engine, read-only:
+
+1. A zero-match probe first. The server parses every operator, so an unsupported one fails here, before any data is read.
+2. A count on real data, checked against an independent recount by a second query or method.
+
+Print only counts. Mask identifiers, and do not print the records.
 
 ## Side effects after a commit
 
@@ -121,6 +130,7 @@ These patterns recur in review. Each one has a check to run before the change sh
 - A dashboard count that does not match the list it links to: click through and compare totals under the same filters, and state the scope on screen.
 - Overlays clipped or mis-anchored: open each at the first and last row, scrolled, on the narrowest viewport and in right-to-left.
 - Forms that accept bad input: submit empty, whitespace, duplicate, wrong-type, over-long and unchanged values.
+- A defect shape seen in one place may be in many. Catch-alls that turned 403 or 404 into 500 ran through about 64 controllers. Fix it once at the shared owner, and add a guard test with a positive control: a request that must produce the error, so a guard that never fires cannot pass.
 
 ## Debugging method
 

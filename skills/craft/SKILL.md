@@ -10,19 +10,19 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 ## Done means the goal
 
-Each rule has a check that runs on the final files before release; `references/self-application.md` lists them.
+Each rule has a check run on the final files before release; `references/self-application.md` lists them.
 
-Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in briefs and name required sources; workers read them first. Reviewers distinguish missing context from ignored instructions.
+Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints and name required sources in briefs. Reviewers distinguish missing context from ignored instructions.
 
 Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric targets before tuning, and never lower one after seeing results. Partial progress or a missing decisive check leaves it incomplete or unverified.
 
-When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not itself make it required; the goal determines the decisive proof. Report an unavailable required check and continue independent work.
+When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not make it required; the goal sets the decisive proof. Report an unavailable required check and continue independent work.
 
 Reviewer: trace each required outcome to final-revision evidence and inspect the output. Verify exceptions against an attributable owner decision; a waiver string or a worker's claim is not approval or proof.
 
 ## Writing like a human
 
-- Lead with the verdict and observable change in plain words, then evidence and what you did not check. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
+- Lead with the verdict and observable change in plain words, then evidence and what went unchecked. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, natural contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
 - Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage`, `robust`, `seamless`, `comprehensive`, `crucial`, `notably` and `genuinely` is out. Rhetorical contrasts, triples, assistant voice and essay furniture are out too. Read `references/writing.md` before shipping prose.
 
@@ -39,7 +39,7 @@ Stop at the first option that holds:
 5. Use one clear line when it works.
 6. Otherwise, the least code that works.
 
-Do not add a speculative interface, factory, flag, config or abstraction. Consolidate duplicated behavior at its shared owner. Prove code dead by searching callers, and keep public contracts and output shapes stable unless the task authorizes a change.
+Do not add a speculative interface, factory, flag, config or abstraction. Consolidate duplicated behavior at its shared owner. Prove code dead by searching callers, and keep public contracts and output shapes stable unless the task authorizes the change.
 
 Agent: search callers with `rg` and inspect `git diff <base>...HEAD`. Reviewer: require each addition and deletion to serve the task, and keep validation and error handling.
 
@@ -52,7 +52,8 @@ Agent: inspect `git diff <base>...HEAD` and `git show --stat`. Reviewer: check s
 ## Build it to hold
 
 - Fail closed at trust boundaries: bad input, uncertain identity, missing validation or ambiguous acknowledgement cannot become success or silent repair. Bound every input, so a bad value gets a clear client error with no framework text.
-- Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch/background work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
+- Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
+- Helper scripts validate their arguments and stop at the first failed step.
 - Cancellation must propagate, stale async results must be discarded, and children must be reaped in cleanup. Verify bytes rather than declared sizes; acknowledge only durable writes and verify matching content before replacing a destination. Mask sensitive output. Comments and receipts state only what the code proves; a tuned knob names its ceiling and upgrade condition.
 - Never change a cap, budget, complexity limit, test tolerance or exclusion just to fit the patch. A task or explicit owner decision must authorize that exact change; record why and measure again. Existing over-limit functions must not get worse; old debt cannot excuse a new failure. A required failing gate stays failed without an authorized baseline policy.
 - A rule about what a customer may see covers every surface that returns the same fields. Enumerate them with a guard test, and keep the feature off until it passes. A side effect after a committed write never fails the write: bound it, log it, and fall back to the essential step.
@@ -68,11 +69,11 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 ## Prove what you claim
 
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
-- Test the caller's actual failure, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Remove a behavior guard in isolated scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
+- Test the caller's actual failure, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
 - Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
 - For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
 - An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one source for every number shown.
-- Green CI is not proof when decisive tests were skipped. Read the skip count and run those tests with real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
+- Green CI is not proof when decisive tests were skipped, including skips for missing local data. Read the skip count and run those tests with real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
 
 Read `references/proof-and-debugging.md` for test method, the CI command list and label checks. Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep the unverified label when evidence is missing.
 
@@ -88,13 +89,13 @@ Executable plans resolve every name, contract, value and test the implementer ca
 
 Send status on the assigned channel at its cadence. Report an obstacle with the next action, and keep independent work moving. A later done message does not repair an earlier silent interval.
 
-Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age during a dispatch, honoring documented waits; an unfinished transcript is not proof of a stall.
+Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age during a dispatch, honoring documented waits; an unfinished transcript proves no stall.
 
 ## Review
 
-A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Verify delegated claims and findings against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Gating claims are checked by running the check yourself, and a merge takes only the head that was reviewed.
+A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Verify delegated claims and findings against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Gating claims are checked by running the check yourself; a merge takes only the reviewed head.
 
-Reviewer: confirm each required outcome and counterexample against the final revision, and check approval references and every gate result. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` when you dispatch work or review a branch.
+Reviewer: confirm each required outcome and counterexample against the final revision, and check approvals and every gate result. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` to dispatch work or review a branch.
 
 ## Commits
 
@@ -104,7 +105,7 @@ Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's
 
 ## Autonomous and goal runs
 
-When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide what the owner's recorded decisions and taste settle, recording each with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, and no safe path removes the risk. A guard that prompts is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
+When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide what the owner's recorded decisions and taste settle, recording each with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, with no safe path to remove the risk. A guard that prompts is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
 
 ## Red flags that mean stop
 
@@ -113,4 +114,4 @@ When nobody reads each turn, keep going to the completion condition without aski
 - "The check was optional": an unproved required outcome stays unverified.
 - "Probably still 8080", "a flag for later" or "nearby cleanup": read the source and keep the change in scope.
 
-Reviewer: reject these justifications; stop the claim and report the obstacle.
+Reviewer: reject these; stop the claim and report the obstacle.

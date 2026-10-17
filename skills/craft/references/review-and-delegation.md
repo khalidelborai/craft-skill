@@ -74,6 +74,12 @@ The suites you ran by hand are not the whole gate. Before a merge, list every ch
 
 A lint rule can catch what every test passes. A static import of a lazy-loaded module, for example, fails lint and runs fine in tests. A red lint job left on an integration branch fails the next PR that merges on top of it.
 
+## Copying a rule into another service
+
+Before a rule goes into a second service, map that service's customer-facing outputs with file and line: every response field, export, notification and page the rule touches. Keep one owner of the rule. Pin the other copy with a cross-repo contract test that fails when either side drifts. One sync-side filter dropped data that an off switch was meant to restore, and a shared test would have caught it.
+
+A claim that nothing reaches customers is checked by reading every caller and every scheduler yourself. A summary is not the check.
+
 ## Acting on review feedback
 
 Treat each finding as a claim to check against the code. Then:

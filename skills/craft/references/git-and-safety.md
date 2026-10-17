@@ -66,6 +66,18 @@ Never remove or nest a worktree that the current task did not create.
 - Pin a dependency you add, and reference the lock file a reviewer will read.
 - Before a push, run the checks the repo documents, on the tree you will push. A green run on another tree proves nothing about this one.
 
+## Helper scripts and worktree dependencies
+
+A helper script validates its arguments and stops at the first failed step: `set -euo pipefail`, and check each path before the first write. Never let a pipeline hide a failure. A `cd` that fails inside `cmd | tail` exits 0, and the script runs on in the wrong directory.
+
+Each worktree gets its own copy of its dependencies. On APFS, `cp -cR` clones a directory at almost no disk cost. A symlinked vendor directory loads the sibling worktree's code, so a test in one worktree can exercise another one's code. Before trusting a result, confirm which file a class loads from with a reflection check, for example `(new ReflectionClass(Foo::class))->getFileName()` in PHP or `__file__` in Python.
+
+## One-off scripts and processes
+
+A one-off Laravel script is a standalone PHP file that boots the kernel itself: require the autoloader, build the app from `bootstrap/app.php`, then bootstrap the kernel. `php artisan tinker` waits for terminal input, so it hangs in a non-interactive run.
+
+Never `pkill -f` a pattern from your own command line. The pattern also matches your shell, so the command kills itself. Stop the PID you started, or match an exact process name.
+
 ## Secrets
 
 Secret values never appear in output, logs, commits, reports or prompts. Describe where a secret lives (the file, the store, the variable name) and never copy the value. If a secret does appear in output, say so, flag it for the owner, and do not repeat it. Rotation is the owner's call, unless the brief gives you the authority.

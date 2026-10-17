@@ -2,6 +2,20 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.10.0 - 2026-10-17
+
+Subject: craft 1.10.0 adds probes, helper-script, skip and cross-service rules
+
+A batch of five lessons from one build. Each one came from a defect or a wrong claim that got past the checks.
+
+- Queries that matter run on the production engine first, read-only: a zero-match probe, then a count checked against an independent recount.
+- Helper scripts validate their arguments and stop at the first failed step. Each worktree gets its own dependency copy, and a reflection check confirms which file a class loads from.
+- A test that skips for missing local data never ran in CI. A defect shape seen in one place gets one fix at the shared owner and a guard test with a positive control.
+- A rule copied into a second service is mapped to that service's customer-facing outputs, with one owner for the rule and a cross-repo contract test on the copy.
+- One-off Laravel scripts boot the kernel directly, not through tinker. A process is never stopped with `pkill -f` on a pattern from the same command line.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.9.0 - 2026-10-17
 
 Subject: craft 1.9.0 applies visibility rules to every surface returning a field
