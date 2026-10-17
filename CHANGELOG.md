@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.8.0 - 2026-10-17
+
+Subject: craft 1.8.0 runs each CI job's own commands and checks every role
+
+A worker reported a PHP lint pass, but the CI job still failed: its style tool ran on a fixed file list, and the worker had checked syntax only. A label reading "our staff" would also have been wrong for a reseller's action on the same screens.
+
+- Before reporting done, a worker runs each command its CI job runs, copied from the workflow file, and names each one in the evidence.
+- A label that names who acted is checked against every role that can reach its code path, not only the roles the ticket names.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.7.0 - 2026-10-17
 
 Subject: craft 1.7.0 proves the e2e listener is the tested process
