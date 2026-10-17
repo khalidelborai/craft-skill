@@ -2,6 +2,21 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.5.0 - 2026-10-17
+
+Subject: craft 1.5.0 adds acceptance, input and permission rules from a QA review
+
+A review of 1,668 bugs filed by one QA lead over 21 months showed the same defect shapes returning each sprint. The rules below sharpen existing sections where they overlapped, and add the checks that were missing.
+
+- Acceptance walks every state in each language, with one source for every number shown.
+- A control must change the request it claims to, and an export covers the full filtered set and is opened in its target tool.
+- Every input is bounded, and a bad value gets a client error with no framework text.
+- A caller's test covers each role, another tenant and an anonymous caller.
+- Success text comes from the server response. Notifications count as delivered only when the provider reports it.
+- A defect-pattern list gives a check for each shape that recurs in review.
+
+The eval gate ran the four existing tasks, three samples each, on the candidate content. As with 1.4.0, the bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.4.0 - 2026-10-17
 
 Subject: craft 1.4.0 adds delivery, contract and merge rules

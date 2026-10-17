@@ -14,7 +14,7 @@ Each rule here has a check that runs on the final files before this skill ships.
 
 Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in the brief and identify required project sources; workers read those sources before acting. Reviewers distinguish missing context from ignored instructions.
 
-Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric acceptance measures before tuning; never invent or lower a target after seeing results. Partial progress or a missing decisive check leaves the outcome incomplete or unverified.
+Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric targets before tuning, and never lower one after seeing results. Partial progress or a missing decisive check leaves the outcome incomplete or unverified.
 
 When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not itself make it required; the goal determines the decisive proof. Report an unavailable required check and continue independent work.
 
@@ -22,11 +22,11 @@ Reviewer: trace every required outcome to final-revision evidence and inspect th
 
 ## Writing like a human
 
-- Lead with the verdict and observable change in plain words, then evidence and what you did not check. Keep citations and facts when shortening. Identify internal-only work plainly; a filename is not a customer outcome.
+- Lead with the verdict and observable change in plain words, then evidence and what you did not check. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, natural contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
 - Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage`, `robust`, `seamless`, `comprehensive`, `crucial`, `notably` and `genuinely` is out. Rhetorical contrasts, rhetorical triples, assistant voice and essay furniture are out too. Read `references/writing.md` before shipping prose.
 
-Reviewer: check the final text's meaning, claims and project template, including customer wording. Machine: run the project's prose checker when available; report if it was unavailable.
+Reviewer: check the final text's meaning, claims and project template, including customer wording. Machine: run the prose checker when available, and report if not.
 
 ## Simplicity first
 
@@ -41,7 +41,7 @@ Stop at the first option that holds:
 
 Do not add a speculative interface, factory, flag, config or abstraction. Consolidate duplicated behavior at its shared owner. Prove code dead by searching callers before deleting it, and keep public contracts and output shapes stable unless the task authorizes a change.
 
-Agent: search callers with `rg` and inspect `git diff <base>...HEAD`. Reviewer: require every addition and deletion to serve the task; do not cut validation or error handling for brevity.
+Agent: search callers with `rg` and inspect `git diff <base>...HEAD`. Reviewer: require every addition and deletion to serve the task, and keep validation and error handling.
 
 ## Surgical changes
 
@@ -51,7 +51,7 @@ Agent: inspect `git diff <base>...HEAD` and `git show --stat`. Reviewer: check s
 
 ## Build it to hold
 
-- Fail closed at trust boundaries: bad input, uncertain identity, missing validation or ambiguous acknowledgement cannot become success or silent repair. Preserve validation and error handling when moving code.
+- Fail closed at trust boundaries: bad input, uncertain identity, missing validation or ambiguous acknowledgement cannot become success or silent repair. Bound every input, so a bad value gets a clear client error with no framework text. Preserve validation and error handling when moving code.
 - Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch/background work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
 - Cancellation must propagate, stale async results must be discarded, and children must be reaped in cleanup. Verify bytes rather than declared sizes; acknowledge only durable writes and verify matching content before replacing a destination. Mask sensitive output. Comments and receipts state only what the code proves; a tuned knob names its ceiling and upgrade condition.
 - Never change a cap, budget, complexity limit, test tolerance or exclusion just to fit the patch. A task or explicit owner decision must authorize that exact change; record why and measure again. Existing over-limit functions must not get worse; old debt cannot excuse a new failure. A required failing gate stays failed without an authorized baseline policy.
@@ -69,17 +69,17 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 ## Prove what you claim
 
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
-- Test the caller's actual failure, including state orderings, limits and data preservation. Remove a behavior guard in isolated scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
+- Test the caller's actual failure, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller the feature admits. Remove a behavior guard in isolated scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
 - Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries, rows or allocations rather than relying on elapsed time.
 - For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
-- An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, and inspect translated output token by token.
+- An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one source for every number shown.
 - Green CI is not proof when decisive tests were skipped. Read the skip count and run those tests with their real dependencies on the target runtime.
 
 Read `references/proof-and-debugging.md` for the test method (naming the break, mutation checks, running the full suite). Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Preserve an unverified label when required evidence is unavailable.
 
 ## Think before you code or answer
 
-Read current code, logs, earlier changes and decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure is detected. Resolve routine choices from established patterns; surface a consequential ambiguity or authorization gate. In an unattended run, surfacing means logging the ambiguity with its basis and reporting it at the end; the run keeps going unless the ambiguity is a gate. Choose the design that is deterministic, measurable and has one owner.
+Read current code, logs and earlier decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure is detected. Resolve routine choices from established patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and has one owner.
 
 Reviewer: trace load-bearing values and assumptions to current sources and verify the design handles their failure.
 

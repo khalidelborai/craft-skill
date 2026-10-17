@@ -96,7 +96,7 @@ Add a review focus list for each feature: the inputs the spec implies but no tes
 
 ## Freezing a contract before parallel work
 
-Before workers build both sides of an interface in parallel, freeze the contract as an artifact they both code to. Use an OpenAPI fragment or a shared types file, with example requests and responses for every status, every error and every dry run. Nullable and approximate fields belong in the contract, and their shape is written down. Each side gets a contract test against those examples. A change goes to the contract first, then to both sides.
+Before workers build both sides of an interface in parallel, freeze the contract as an artifact they both code to. Use an OpenAPI fragment or a shared types file, with example requests and responses for every status, every error and every dry run. Nullable and approximate fields belong in the contract, and their shape is written down. Each side gets a contract test against those examples. A change goes to the contract first, then to both sides. Diff live responses against the contract in CI, so drift fails the build.
 
 A prose contract diverged once on dry-run behavior, error shape and whether a figure was exact. That cost a relay and a second frontend pass.
 
