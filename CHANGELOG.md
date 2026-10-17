@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.6.0 - 2026-10-17
+
+Subject: craft 1.6.0 checks every CI job before a merge, not only reruns
+
+A merge reviewed on its suites alone let a red lint job reach the integration branch, and the next two PRs inherited the failure. The rule now covers every job on the PR.
+
+- Before a merge, the owner reads every CI job, including lint, typecheck and build. A red job is fixed, or proven red on the clean base with an owner and an action.
+- The review reference gives the procedure, with the reason: a lint rule can fail a change that every test passes.
+
+The eval gate runs on the candidate content. As before, the bench does not yet measure this rule, so the gate guards against regression only.
+
 ## 1.5.0 - 2026-10-17
 
 Subject: craft 1.5.0 adds acceptance, input and permission rules from a QA review

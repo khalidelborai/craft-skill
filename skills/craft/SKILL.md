@@ -10,7 +10,7 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 ## Done means the goal
 
-Each rule here has a check that runs on the final files before this skill ships. `references/self-application.md` lists them.
+Each rule has a check that runs on the final files before release; `references/self-application.md` lists them.
 
 Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in the brief and identify required project sources; workers read those sources before acting. Reviewers distinguish missing context from ignored instructions.
 
@@ -24,9 +24,9 @@ Reviewer: trace every required outcome to final-revision evidence and inspect th
 
 - Lead with the verdict and observable change in plain words, then evidence and what you did not check. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, natural contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
-- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage`, `robust`, `seamless`, `comprehensive`, `crucial`, `notably` and `genuinely` is out. Rhetorical contrasts, rhetorical triples, assistant voice and essay furniture are out too. Read `references/writing.md` before shipping prose.
+- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage`, `robust`, `seamless`, `comprehensive`, `crucial`, `notably` and `genuinely` is out. Rhetorical contrasts, triples, assistant voice and essay furniture are out too. Read `references/writing.md` before shipping prose.
 
-Reviewer: check the final text's meaning, claims and project template, including customer wording. Machine: run the prose checker when available, and report if not.
+Reviewer: check the final text's meaning, claims and project template, including customer wording. Machine: run the prose checker when available; report if not.
 
 ## Simplicity first
 
@@ -55,7 +55,6 @@ Agent: inspect `git diff <base>...HEAD` and `git show --stat`. Reviewer: check s
 - Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch/background work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
 - Cancellation must propagate, stale async results must be discarded, and children must be reaped in cleanup. Verify bytes rather than declared sizes; acknowledge only durable writes and verify matching content before replacing a destination. Mask sensitive output. Comments and receipts state only what the code proves; a tuned knob names its ceiling and upgrade condition.
 - Never change a cap, budget, complexity limit, test tolerance or exclusion just to fit the patch. A task or explicit owner decision must authorize that exact change; record why and measure again. Existing over-limit functions must not get worse; old debt cannot excuse a new failure. A required failing gate stays failed without an authorized baseline policy.
-
 - A rule about what a customer may see covers every read path. Enumerate those paths with a guard test, and keep the feature off until it passes. A side effect after a committed write never turns the write into an error: bound it, log it and fall back to the essential step.
 
 Machine: run project quality checks on base and head, comparing per-function metrics, budgets, exclusions and parser coverage. Reviewer: verify the comparisons and authorization, and exercise affected invalid input, exhaustion, cancellation and data-preservation paths.
@@ -75,7 +74,7 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 - An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one source for every number shown.
 - Green CI is not proof when decisive tests were skipped. Read the skip count and run those tests with their real dependencies on the target runtime.
 
-Read `references/proof-and-debugging.md` for the test method (naming the break, mutation checks, running the full suite). Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Preserve an unverified label when required evidence is unavailable.
+Read `references/proof-and-debugging.md` for the test method (naming the break, mutation checks, running the full suite). Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep an unverified label when required evidence is missing.
 
 ## Think before you code or answer
 
@@ -85,21 +84,21 @@ Reviewer: trace load-bearing values and assumptions to current sources and verif
 
 ## Plans and decisions
 
-Executable plans resolve the names, contracts, values and tests the implementer cannot choose alone; no placeholders or undefined steps. Before parallel workers build both sides of an interface, freeze the contract as an artifact with example payloads for every status and error, and test both sides against it. Record consequential decisions with their reason and cost if wrong. Keep durable progress for work spanning sittings: revision, checks, decisions, remaining work and resume steps.
+Executable plans resolve the names, contracts, values and tests the implementer cannot choose alone; no placeholders or undefined steps. Before parallel workers build both sides of an interface, freeze the contract as an artifact with example payloads for every status and error, and test both sides against it. Record consequential decisions with their reason and cost if wrong. Keep durable progress for multi-sitting work: revision, checks, decisions, remaining work and resume steps.
 
-On supervised or long work, send status through the assigned channel at its required cadence. Report an obstacle and next action; continue independent work. An eventual done message does not repair an earlier silent interval.
+On supervised or long work, send status through the assigned channel on its cadence. Report an obstacle and next action; continue independent work. An eventual done message does not repair an earlier silent interval.
 
-Read `references/review-and-delegation.md` for the plan format, the dispatch brief and the status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age while a dispatch is active, honoring documented wait exemptions; an unfinished transcript alone is not proof of a stall.
+Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age while a dispatch is active, honoring documented wait exemptions; an unfinished transcript alone is not proof of a stall.
 
 ## Review
 
-A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Verify delegated success and review findings against code or artifacts before repeating or applying them. Refresh affected checks and review after edits; the verdict names the final revision. The merge owner checks that verdict and required gates, including the actual PR body's project template. A missing required body fails its gate. Gating claims are checked by running the check yourself, not by reading a worker's summary, and a merge takes only the head that was reviewed.
+A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Verify delegated claims and findings against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job on the PR, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Gating claims are checked by running the check yourself, and a merge takes only the head that was reviewed.
 
-Reviewer: each required outcome and counterexample is confirmed against the final revision, and the approval references and gate results are checked. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` when you dispatch work or review a branch.
+Reviewer: each required outcome and counterexample is confirmed against the final revision, and the approval references and every gate result are checked. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` when you dispatch work or review a branch.
 
 ## Commits
 
-One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Prefer existing locked dependencies and pin anything added so a reviewer can trace it.
+One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Use locked dependencies, and pin anything you add.
 
 Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, rewriting history or removing a worktree.
 
@@ -114,4 +113,4 @@ When nobody reads each turn, keep going to the completion condition without aski
 - "The check was optional": an unproved required outcome stays unverified.
 - "Probably still 8080", "a flag for later" or "nearby cleanup": read the source and keep the change in scope.
 
-Reviewer: reject these as justifications. Stop the unsupported claim, keep safe work moving, and report the obstacle.
+Reviewer: reject these as justifications, stop the unsupported claim and report the obstacle.

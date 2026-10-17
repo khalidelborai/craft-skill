@@ -65,6 +65,15 @@ Reviewer rules:
 
 Report the review with the verdict first, then the findings in order of severity, then what the reviewer did not check.
 
+## Checking every CI job before a merge
+
+The suites you ran by hand are not the whole gate. Before a merge, list every check on the PR with `gh pr checks <number>` and read each job, including lint, typecheck and build. For each red job:
+
+- Run the same job's command on a clean checkout of the base commit. If it passes there, the PR caused it, and the PR is fixed before the merge.
+- If the base already fails it, record an owner and an action on the loose-ends list, and name both in the merge note.
+
+A lint rule can catch what every test passes. A static import of a lazy-loaded module, for example, fails lint and runs fine in tests. A red lint job left on an integration branch fails the next PR that merges on top of it.
+
 ## Acting on review feedback
 
 Treat each finding as a claim to check against the code. Then:
