@@ -16,6 +16,8 @@ These rules hold for any subagent, whatever the harness. The harness details dif
 8. Treat a subagent's "done" as a claim. Check its diff or artifact before you repeat the claim, and spot-check the result.
 9. Wait in bounded intervals and read the report file. Absence of a report is not proof of failure. Stop or retry a subagent only on positive evidence.
 10. Commits made by a subagent follow the git rules. An unattended subagent commits locally and never pushes.
+11. A subagent deletes nothing outside its own worktree or the temporary paths it created and recorded. A shared temporary directory is not its to clear.
+12. The coordinator checks any subagent claim that gates a merge by running the check itself: the golden file unchanged on the base, the page rendered, the tests run with real dependencies. The report is not the check.
 
 ## Dispatching work
 
@@ -92,6 +94,12 @@ Use a code body in a plan only where the signature and the tests leave a real ch
 
 Add a review focus list for each feature: the inputs the spec implies but no test covers, each with the test that covers it.
 
+## Freezing a contract before parallel work
+
+Before workers build both sides of an interface in parallel, freeze the contract as an artifact they both code to. Use an OpenAPI fragment or a shared types file, with example requests and responses for every status, every error and every dry run. Nullable and approximate fields belong in the contract, and their shape is written down. Each side gets a contract test against those examples. A change goes to the contract first, then to both sides.
+
+A prose contract diverged once on dry-run behavior, error shape and whether a figure was exact. That cost a relay and a second frontend pass.
+
 ## Progress and recovery
 
 Keep a ledger with one line per completed task, written in the same step as the commit. After a context compaction, trust the ledger and the git log over memory. A remembered fact about progress is a lead to check.
@@ -101,3 +109,5 @@ Record each plan change with the reason and the cost if it is wrong. A change ma
 ## Orchestration status
 
 A successful send proves that the message was accepted, not that the recipient read it. Confirm the recipient started work before you rely on it. A timeout or an empty wait is a checkpoint and not a failure. Only positive evidence stops, abandons or retries work.
+
+The coordinator reads every message that is not a heartbeat, of every type. A filter that drops one message type can hide a worker's contract change for an hour. Filter heartbeats only.

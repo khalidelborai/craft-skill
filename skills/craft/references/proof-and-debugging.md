@@ -33,6 +33,26 @@ Check the suite on the tree you will integrate. A green run proves only the tree
 - For a delegated result, check the diff or the artifact before you repeat the claim. An agent's "done" is a claim.
 - If a check could not run, say so and leave the outcome marked unverified.
 
+## Acceptance on the surface the user sees
+
+A requirement about an output covers every surface that shows the output to a user: rendered pages, PDF, DOCX, spreadsheet and CSV exports, email, and UI strings. It also covers every product the requirement names. The owner can cut a surface explicitly. A plan that defers a visible surface is a question for the owner, and it is asked before anything is built. A builder that accepts a language parameter has not met the requirement. Acceptance is what the user sees after choosing the option, checked on the deployed target by rendering the page or walking the screen in a browser.
+
+Translated output gets a page-image pass. Every visible token counts, including enum values, statuses, severities, chart labels, table headers and empty states. Names, URLs and identifiers may stay in their source language. Nothing else may.
+
+A rule about what a customer may see covers every read path. A dashboard, a scheduled summary and an export are read paths. Enumerate them with a guard test, and keep the feature off for a customer until the guard passes.
+
+## Skipped tests and the target runtime
+
+Green CI is not proof when the decisive tests were skipped. Read the skip count in the test output. If the tests that matter need a database or a broker, run them against a real instance with its connection string set. Lint and smoke-test on the runtime version the target runs, not the version on the developer's machine.
+
+## Side effects after a commit
+
+A side effect that runs after a committed write (a queue dispatch, a cache warmer, a notification) must not turn the write into an error. Bound the side effect with a timeout, log it with a reason code, and fall back to the essential synchronous step, such as invalidating a cache key. Test it with a dependency that throws, and confirm the write still succeeded.
+
+## Reproduce before attributing
+
+Before a failure is blamed on a change, reproduce it on the clean base. A failure that already exists on the base goes on a loose-ends list with an owner and an action. It does not go into the change under review.
+
 ## Debugging method
 
 Find the root cause before you change code. The sequence is:

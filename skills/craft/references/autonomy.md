@@ -26,6 +26,10 @@ Before you ask anyone, work down this list. Stop at the first one that answers t
 
 Record every decision in the run log with four fields: the decision, the basis (which step above, with a citation), the cost if it is wrong, and how to overrule it. Repeat the list in the final report.
 
+## Acting on an answer
+
+When an answer unblocks work, start that work in the same turn. A gap of hours between an owner's answer and the first dispatch is a failure of the run, even if nothing else was idle.
+
 ## Writing answers back
 
 When the owner answers a question or overrules a decision, record the answer in the decision record the same session: the decision, the date, the context and the scope it covers. A later run then finds the answer in step 2 and does not ask again. If the project has no record, create `DECISIONS.md` at the repo root and name it in the final report.

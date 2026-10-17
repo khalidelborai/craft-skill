@@ -11,6 +11,10 @@ Read this before you stage, commit, push, merge, rewrite history, remove a workt
 - Confirm the base before you merge or rebase. A merge into the wrong base is expensive to undo.
 - Do not pass `--no-verify`, `--no-gpg-sign` or a force flag to a protected branch unless the owner asks for it in this run.
 
+## Merging the reviewed head
+
+Merge only the head that was reviewed, and pin it: `gh pr merge --match-head-commit <sha>`. After the merge, check whether the branch gained commits after that head. Commits that landed after the review are unreviewed, so they need their own pull request.
+
 ## Commits
 
 - One logical change per commit. Keep formatting-only edits in their own commit.

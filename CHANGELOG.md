@@ -2,6 +2,24 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.4.0 - 2026-10-17
+
+Subject: craft 1.4.0 adds delivery, contract and merge rules
+
+A two-day build with several parallel agents exposed gaps the skill did not cover. Each rule below came from a logged failure, with the evidence kept in the source run.
+
+- Acceptance covers every surface the user sees and every product a requirement names. Deferring a surface is an owner question, asked before building.
+- Translated output gets a page-image pass, enum values and empty states included.
+- A rule about what a customer may see covers every read path, enumerated by a guard test.
+- Green CI is not proof when decisive tests were skipped. Read the skip count, and run those tests with real dependencies on the target runtime.
+- Side effects after a committed write never turn the write into an error.
+- Parallel work on both sides of an interface starts only after the contract is frozen as an artifact.
+- The coordinator reads every non-heartbeat message, and merges only the reviewed head.
+- Subagents delete nothing outside their own worktree or recorded temporary paths.
+- An answer that unblocks work starts in the same turn.
+
+The eval gate ran the four existing tasks, three samples each, on the candidate content (hash 37d9e46b6e343f5b). It measures regression, not the new rules, because those rules need multi-agent runs that the bench does not yet cover.
+
 ## 1.3.2 - 2026-10-12
 
 Subject: craft 1.3.2 ships its prose lint and gates releases on quality
