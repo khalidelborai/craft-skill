@@ -55,9 +55,9 @@ Agent: inspect `git diff <base>...HEAD` and `git show --stat`. Reviewer: check s
 - Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch/background work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
 - Cancellation must propagate, stale async results must be discarded, and children must be reaped in cleanup. Verify bytes rather than declared sizes; acknowledge only durable writes and verify matching content before replacing a destination. Mask sensitive output. Comments and receipts state only what the code proves; a tuned knob names its ceiling and upgrade condition.
 - Never change a cap, budget, complexity limit, test tolerance or exclusion just to fit the patch. A task or explicit owner decision must authorize that exact change; record why and measure again. Existing over-limit functions must not get worse; old debt cannot excuse a new failure. A required failing gate stays failed without an authorized baseline policy.
-- A rule about what a customer may see covers every read path. Enumerate those paths with a guard test, and keep the feature off until it passes. A side effect after a committed write never turns the write into an error: bound it, log it and fall back to the essential step.
+- A rule about what a customer may see covers every surface that returns the same fields. Enumerate them with a guard test, and keep the feature off until it passes. A side effect after a committed write never fails the write: bound it, log it, and fall back to the essential step.
 
-Machine: run quality checks on base and head, comparing per-function metrics, budgets, exclusions and parser coverage. Reviewer: verify the comparisons and authorization, and exercise affected invalid input, exhaustion, cancellation and data-preservation paths.
+Machine: run quality checks on base and head, comparing per-function metrics, budgets, exclusions and parser coverage. Reviewer: verify the comparisons and authorization, and exercise invalid input, exhaustion, cancellation and data-preservation paths.
 
 ## Debug to the root cause
 

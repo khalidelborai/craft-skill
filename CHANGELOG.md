@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.9.0 - 2026-10-17
+
+Subject: craft 1.9.0 applies visibility rules to every surface returning a field
+
+A build hid who acted on one audit screen, but a second endpoint returned the same fact, and a test asserted that leak. The visibility rule now covers every surface that returns the same fields.
+
+- A visibility rule covers every endpoint, export, search, report and webhook that returns the same fields. Grep them all and list each one in the PR.
+- A test that asserts the old exposure is the bug's spec, so it is rewritten to assert the new rule.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.8.0 - 2026-10-17
 
 Subject: craft 1.8.0 runs each CI job's own commands and checks every role

@@ -2,7 +2,7 @@
 
 Read this when you write or fix a test, prove a change works, or chase a bug. The core rules live in SKILL.md (Debug to the root cause, Prove what you claim). This file adds the methods behind them.
 
-Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
+Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
 
 ## Name the break before the test
 
@@ -75,6 +75,16 @@ A worker reports done only after it runs the commands its CI job runs. Take them
 3. If a command needs a service or secret the worker lacks, say so and mark that job unverified. Do not swap in a nearby command.
 
 A label that names who acted (an audit entry, a "changed by" field, a notification, a status tag) is checked against every role that can reach its code path, not only the roles the ticket names. Resellers and managed service providers can reach the screens that staff use. A label that reads "our staff" on a reseller's action is wrong. List the roles from the route guards or the permission matrix, run each one through the path, and read the label each time.
+
+## Visibility across surfaces
+
+A visibility rule applies to every surface that returns the same fields: list and detail endpoints, search, exports, reports, webhooks and admin views. Hiding a field on one screen does nothing while a second endpoint returns it.
+
+1. Before the change, grep every endpoint, serializer, export and template that returns those fields. List each one in the PR with the decision made for it.
+2. Cover the list with a guard test that requests each surface as each role and asserts the field is absent where the rule says so.
+3. A test that asserts the old exposure is the spec of the bug. Rewrite it to assert the new rule, and do not keep it as a regression baseline.
+
+A build hid "who acted" on one audit screen, and a second endpoint still returned the same fact. A test asserted that second endpoint's output, so the leak passed review.
 
 ## Side effects after a commit
 
