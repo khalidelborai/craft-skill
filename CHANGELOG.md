@@ -2,6 +2,18 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.7.0 - 2026-10-17
+
+Subject: craft 1.7.0 proves the e2e listener is the tested process
+
+A local end-to-end run returned an empty 200 that looked flaky. The cause was another worker's mock server on the same port: the real server failed to bind and exited, and the mock answered. The rule now asks for proof of the listener before a local run counts, and for an explanation of any one-off result.
+
+- Before a local end-to-end run counts, the listener on its port must be the process under test. A taken port fails fast.
+- Parallel workers get their own port ranges, written in the brief.
+- An unexplained one-off result is root-caused before the merge. It is never written off as flaky.
+
+The eval gate runs on the candidate content. The bench does not yet measure this rule, so the gate guards against regression only.
+
 ## 1.6.0 - 2026-10-17
 
 Subject: craft 1.6.0 checks every CI job before a merge, not only reruns

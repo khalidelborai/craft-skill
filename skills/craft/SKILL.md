@@ -12,7 +12,7 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 Each rule has a check that runs on the final files before release; `references/self-application.md` lists them.
 
-Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in the brief and identify required project sources; workers read those sources before acting. Reviewers distinguish missing context from ignored instructions.
+Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints in briefs and name the required sources; workers read them first. Reviewers distinguish missing context from ignored instructions.
 
 Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric targets before tuning, and never lower one after seeing results. Partial progress or a missing decisive check leaves the outcome incomplete or unverified.
 
@@ -61,7 +61,7 @@ Machine: run project quality checks on base and head, comparing per-function met
 
 ## Debug to the root cause
 
-Name the root cause before editing. Trace the bad value to its source; across components, observe inputs and outputs at each boundary to locate the failing stage. After three failed fixes, revisit the design. Fix a race by waiting on its condition, not by extending a sleep or timeout.
+Name the root cause before editing. Trace the bad value to its source; across components, observe inputs and outputs at each boundary to locate the failing stage. After three failed fixes, revisit the design. Fix a race by waiting on its condition, not by extending a sleep or timeout. An unexplained one-off result is root-caused before merge, not called flaky.
 
 Reviewer: require a reproduction that reaches the failing stage and an explanation supported by that output; reject symptom removal without causal evidence. `references/proof-and-debugging.md` has the localization stop rule.
 
@@ -69,26 +69,26 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
 - Test the caller's actual failure, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller the feature admits. Remove a behavior guard in isolated scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
-- Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries, rows or allocations rather than relying on elapsed time.
+- Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
 - For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
 - An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one source for every number shown.
-- Green CI is not proof when decisive tests were skipped. Read the skip count and run those tests with their real dependencies on the target runtime.
+- Green CI is not proof when decisive tests were skipped. Read the skip count and run those tests with their real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
 
-Read `references/proof-and-debugging.md` for the test method (naming the break, mutation checks, running the full suite). Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep an unverified label when required evidence is missing.
+Read `references/proof-and-debugging.md` for the test method, mutation checks and full-suite runs. Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep an unverified label when required evidence is missing.
 
 ## Think before you code or answer
 
 Read current code, logs and earlier decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure is detected. Resolve routine choices from established patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and has one owner.
 
-Reviewer: trace load-bearing values and assumptions to current sources and verify the design handles their failure.
+Reviewer: trace load-bearing assumptions to current sources and check their failure handling.
 
 ## Plans and decisions
 
-Executable plans resolve the names, contracts, values and tests the implementer cannot choose alone; no placeholders or undefined steps. Before parallel workers build both sides of an interface, freeze the contract as an artifact with example payloads for every status and error, and test both sides against it. Record consequential decisions with their reason and cost if wrong. Keep durable progress for multi-sitting work: revision, checks, decisions, remaining work and resume steps.
+Executable plans resolve every name, contract, value and test the implementer cannot choose; no placeholders. Before parallel workers build both sides of an interface, freeze the contract as an artifact with example payloads for every status and error, and test both sides against it. Record consequential decisions with their reason and cost if wrong. Keep durable progress for multi-sitting work: revision, checks, decisions, remaining work and resume steps.
 
-On supervised or long work, send status through the assigned channel on its cadence. Report an obstacle and next action; continue independent work. An eventual done message does not repair an earlier silent interval.
+Send status on the assigned channel at its cadence. Report an obstacle with the next action, and keep independent work moving. A later done message does not repair an earlier silent interval.
 
-Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age while a dispatch is active, honoring documented wait exemptions; an unfinished transcript alone is not proof of a stall.
+Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age during a dispatch, honoring documented waits; an unfinished transcript is not proof of a stall.
 
 ## Review
 
@@ -104,7 +104,7 @@ Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's
 
 ## Autonomous and goal runs
 
-When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition first, keep a run log, and decide everything the owner's recorded decisions and taste settle, recording each decision with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, and no safe path removes the risk. A guard that prompts is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
+When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide everything the owner's recorded decisions and taste settle, recording each decision with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, and no safe path removes the risk. A guard that prompts is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
 
 ## Red flags that mean stop
 
@@ -113,4 +113,4 @@ When nobody reads each turn, keep going to the completion condition without aski
 - "The check was optional": an unproved required outcome stays unverified.
 - "Probably still 8080", "a flag for later" or "nearby cleanup": read the source and keep the change in scope.
 
-Reviewer: reject these as justifications, stop the unsupported claim and report the obstacle.
+Reviewer: reject these justifications; stop the claim and report the obstacle.

@@ -2,7 +2,7 @@
 
 Read this when you write or fix a test, prove a change works, or chase a bug. The core rules live in SKILL.md (Debug to the root cause, Prove what you claim). This file adds the methods behind them.
 
-Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
+Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
 
 ## Name the break before the test
 
@@ -54,6 +54,17 @@ A file format with no test in the suite is untested. Say so in the report instea
 ## Skipped tests and the target runtime
 
 Green CI is not proof when the decisive tests were skipped. Read the skip count in the test output. If the tests that matter need a database or a broker, run them against a real instance with its connection string set. Lint and smoke-test on the runtime version the target runs, not the version on the developer's machine.
+
+## Local end-to-end listeners
+
+A local end-to-end run proves the server under test only when that server owns the port it calls. Another process on the same port can answer for it, and a real server that fails to bind and exits leaves the impostor serving.
+
+- Before starting the server, check the port (`lsof -nP -iTCP:<port> -sTCP:LISTEN`). If anything listens there, fail fast with the PID and command line, and pick another port.
+- After the server starts, confirm the listener's PID is the process you launched and that its command line is the expected binary and arguments (`ps -p <pid> -o pid,command`).
+- Make the launcher exit non-zero when the bind fails. The harness waits for readiness and fails when the process exits; it does not wait on a timer.
+- Give each parallel worker its own port range, written in its brief, so two workers cannot share a port.
+
+An unexplained one-off result is a defect until its cause is found. Reproduce it, identify which process answered and the first stage whose output is wrong, and fix or document the cause before the merge. A label such as "flaky" needs the same proof as any other claim. A first request that returns 200 with an empty result can be a stranger's server, and the listener check is the first thing to rule out.
 
 ## Side effects after a commit
 
