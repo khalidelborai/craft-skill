@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.13.0 - 2026-10-18
+
+Subject: craft 1.13.0 adds input acknowledgement and fail-closed merge gates
+
+A message sent to a busy worker was never read, and it waited 30 minutes. A merge gate that ignored its required checks nearly merged a PR whose only checks were ignored ones.
+
+- An input a worker must act on goes into a fresh dispatch's brief, or the send is confirmed acknowledged.
+- Merge automation fails closed: no required check on the head means no merge. A conflict shape it does not recognise stops the run instead of guessing.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.12.0 - 2026-10-18
 
 Subject: craft 1.12.0 adds stale-state review and end-to-end access tests

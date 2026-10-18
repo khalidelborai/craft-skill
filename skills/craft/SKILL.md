@@ -14,16 +14,16 @@ Each rule has a check run on the final files before release; `references/self-ap
 
 Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and each outcome's acceptance check. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints in briefs. Reviewers distinguish missing context from ignored instructions.
 
-Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after seeing results. Partial progress or a missing decisive check leaves it incomplete or unverified.
+Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after results. Partial progress or a missing decisive check leaves it incomplete or unverified.
 
 When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not make it required; the goal sets the decisive proof. Report an unavailable required check and continue independent work.
 
-Reviewer: verify exceptions against an attributable owner decision; a waiver string or a worker's claim is not approval or proof.
+Reviewer: verify exceptions against an attributable owner decision; a waiver string or worker claim is not approval or proof.
 
 ## Writing like a human
 
 - Lead with the verdict and observable change in plain words, then evidence and what went unchecked. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
-- Use sentences with verbs, natural contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
+- Use sentences with verbs, contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
 - Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler words such as `delve`, `leverage` and `robust` are out. Rhetorical contrasts, triples, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
 
 Reviewer: check the final text's meaning, claims, project template and customer wording. Machine: run the prose checker when available; report if not.
@@ -93,9 +93,9 @@ Read `references/review-and-delegation.md` for plan format, dispatch briefs and 
 
 ## Review
 
-A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Access-control changes get an independent review that hunts stale state. Verify delegated claims and findings against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Gating claims are checked by running the check yourself; a merge takes only the reviewed head.
+A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Access-control changes get an independent stale-state review. Verify delegated claims against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Merge gates fail closed: no required check on the head, no merge. Gating claims are checked by running the check yourself; a merge takes only the reviewed head.
 
-Reviewer: confirm each required outcome and counterexample against the final revision, and check approvals and every gate result. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` to dispatch work or review a branch.
+Reviewer: confirm each required outcome and counterexample against the final revision, and check approvals and every gate result. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` to dispatch or review.
 
 ## Commits
 
@@ -105,7 +105,7 @@ Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's
 
 ## Autonomous and goal runs
 
-When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide what the owner's recorded decisions and taste settle, recording each with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, with no safe path to remove the risk. A guard that prompts is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
+When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide what the owner's recorded decisions and taste settle, recording each with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, with no safe path to remove the risk. A prompting guard is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
 
 ## Red flags that mean stop
 

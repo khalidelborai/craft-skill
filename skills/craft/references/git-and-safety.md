@@ -15,6 +15,8 @@ Read this before you stage, commit, push, merge, rewrite history, remove a workt
 
 Merge only the head that was reviewed, and pin it: `gh pr merge --match-head-commit <sha>`. After the merge, check whether the branch gained commits after that head. Commits that landed after the review are unreviewed, so they need their own pull request.
 
+Merge automation fails closed. No required check on the head means no merge, and a check marked ignored does not count as passing. One PR nearly merged when its only checks were ignored ones. A conflict shape the automation does not recognise stops the run; it does not guess a resolution.
+
 ## Commits
 
 - One logical change per commit. Keep formatting-only edits in their own commit.

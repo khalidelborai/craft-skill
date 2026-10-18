@@ -135,6 +135,6 @@ Record each plan change with the reason and the cost if it is wrong. A change ma
 
 ## Orchestration status
 
-A successful send proves that the message was accepted, not that the recipient read it. Confirm the recipient started work before you rely on it. A timeout or an empty wait is a checkpoint and not a failure. Only positive evidence stops, abandons or retries work.
+A successful send proves that the message was accepted, not that the recipient read it. Confirm the recipient started work before you rely on it. An input the worker must act on, such as a file path or an answer, goes into a fresh dispatch's brief, or the send is confirmed acknowledged. A message sent while the worker was busy may never have been read. One such message waited 30 minutes. A timeout or an empty wait is a checkpoint and not a failure. Only positive evidence stops, abandons or retries work.
 
 The coordinator reads every message that is not a heartbeat, of every type. A filter that drops one message type can hide a worker's contract change for an hour. Filter heartbeats only.
