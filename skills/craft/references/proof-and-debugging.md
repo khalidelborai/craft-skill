@@ -35,6 +35,15 @@ Check the suite on the tree you will integrate. A green run proves only the tree
 - For a delegated result, check the diff or the artifact before you repeat the claim. An agent's "done" is a claim.
 - If a check could not run, say so and leave the outcome marked unverified.
 
+### Cherry-picks to another base
+
+A change cherry-picked to another base is proven on that base, not on the source branch. Picked tests often use a class or trait that exists only on the source. Then every CI workflow on the target fails while loading it, and a local pass means nothing. One hotfix passed locally because its vendor directory was copied from the source worktree, and an optimized classmap still resolved classes to the source checkout.
+
+1. After the pick, check that every class and trait the picked tests use exists on the target.
+2. Build the autoload in the target checkout. Load a class the tests use, and confirm it resolves inside that checkout.
+3. Diff the full-suite failure names between the clean target base and the branch. A new name is a regression from the pick.
+4. CI on the target branch is the gate.
+
 ## Acceptance on the surface the user sees
 
 A requirement about an output covers every surface that shows the output to a user: rendered pages, PDF, DOCX, spreadsheet and CSV exports, email, and UI strings. It also covers every product the requirement names. The owner can cut a surface explicitly. A plan that defers a visible surface is a question for the owner, and it is asked before anything is built. A builder that accepts a language parameter has not met the requirement. Acceptance is what the user sees after choosing the option, checked on the deployed target by rendering the page or walking the screen in a browser.

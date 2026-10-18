@@ -14,7 +14,7 @@ Each rule has a check on the final files; `references/self-application.md` lists
 
 Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and each outcome's acceptance check. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints in briefs. Reviewers separate missing context from ignored instructions.
 
-Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after results. Partial progress or a missing decisive check leaves it incomplete or unverified. Before handoff, run the checks in `references/pre-handoff.md`.
+Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after results. Partial progress or a missing decisive check leaves it unverified. Before handoff, run the checks in `references/pre-handoff.md`.
 
 When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. The goal requires a check, not permission to run it. Report an unavailable required check and continue independent work.
 
@@ -24,7 +24,7 @@ Reviewer: verify exceptions against an attributable owner decision; a waiver str
 
 - Lead with the verdict and observable change in plain words, then evidence and what went unchecked. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
-- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage` and `robust` is out. Rhetorical contrasts, triples, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
+- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve` and `leverage` is out. Rhetorical contrasts, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
 
 Reviewer: check the final text's meaning, claims, project template and customer wording. Machine: run the prose checker when available; report if not.
 
@@ -71,11 +71,11 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
 - Test the caller's actual failure with a positive control on real data, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Keep one end-to-end case per role through the real path. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
 - Tests own their state, reach the outcome their names claim, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
-- For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
+- For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A cherry-pick is proven on its target base. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
 - An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, against each acceptance line, with one definition for every number and its drill-down.
 - Green CI is not proof when decisive tests were skipped, including skips for missing local data. Read the skip count and run those tests with real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
 
-Read `references/proof-and-debugging.md` for test method and the CI and label checks. Machine: run the named regression at base/head and the required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep the unverified label when evidence is missing.
+Read `references/proof-and-debugging.md` for test method and CI and label checks. Machine: run the named regression at base/head and the required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep the unverified label when evidence is missing.
 
 ## Think before you code or answer
 
@@ -89,7 +89,7 @@ Executable plans resolve every name, contract, value and test the implementer ca
 
 Report a worker as running only when its screen shows work, and recheck before each status. Send status on the assigned channel on cadence. Report an obstacle with the next action, and keep independent work moving.
 
-Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age during dispatch, honoring documented waits; an unfinished transcript proves no stall.
+Read `references/review-and-delegation.md` for plan format, dispatch briefs and status vocabulary. Reviewer: check plans and handoffs against current state. Machine/orchestrator: check heartbeat age during dispatch, honoring documented waits; unfinished transcripts prove no stall.
 
 ## Review
 

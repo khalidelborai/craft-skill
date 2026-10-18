@@ -2,6 +2,19 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.16.0 - 2026-10-18
+
+Subject: craft 1.16.0 proves a cherry-pick on its target base, not the source
+
+A hotfix cherry-picked to another base passed locally and failed on every CI workflow of the target. Its test used a trait that exists only on the source branch, and the local pass ran against the source checkout.
+
+- A cherry-picked change is proven on its target base. Every class and trait the picked tests use must exist there.
+- The autoload is built in the target checkout, and a loaded class must resolve inside it.
+- The full-suite failure names on the target base and on the branch are diffed. A new name is a regression from the pick.
+- CI on the target branch is the gate.
+
+The eval gate runs on the candidate content. The bench does not yet measure this rule, so the gate guards against regression only.
+
 ## 1.15.0 - 2026-10-18
 
 Subject: craft 1.15.0 checks worker screens, acceptance lines and route sets
