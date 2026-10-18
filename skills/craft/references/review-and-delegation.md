@@ -80,6 +80,18 @@ Before a rule goes into a second service, map that service's customer-facing out
 
 A claim that nothing reaches customers is checked by reading every caller and every scheduler yourself. A summary is not the check.
 
+## Reviewing access-control changes
+
+An access-control change gets an independent review from a reader who did not write it. A second model is acceptable. The reviewer's first question is where the authority comes from at request time. Authority that comes from a session, a cached selection, a token claim or a permission cache can outlive the membership that granted it.
+
+The stale-state pass checks, for each path that grants access:
+
+- Which state holds the grant: the session, a selected team or tenant, a token, a cache. How long it lives, and what clears it.
+- What happens when the membership changes mid-session. A user who has left a team must lose that team's cross-tenant reads on the next request, not at the next login.
+- Whether the test that claims to cover the path reaches it, or seeds the state and skips the path.
+
+One review found a selected team that a user had left still authorizing cross-tenant reads. The change had passed its tests, because none removed membership in a live session.
+
 ## Acting on review feedback
 
 Treat each finding as a claim to check against the code. Then:

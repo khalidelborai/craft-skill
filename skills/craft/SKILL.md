@@ -12,13 +12,13 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 Each rule has a check run on the final files before release; `references/self-application.md` lists them.
 
-Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints and name required sources in briefs. Reviewers distinguish missing context from ignored instructions.
+Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and each outcome's acceptance check. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints in briefs. Reviewers distinguish missing context from ignored instructions.
 
-Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric targets before tuning, and never lower one after seeing results. Partial progress or a missing decisive check leaves it incomplete or unverified.
+Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after seeing results. Partial progress or a missing decisive check leaves it incomplete or unverified.
 
 When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not make it required; the goal sets the decisive proof. Report an unavailable required check and continue independent work.
 
-Reviewer: trace each required outcome to final-revision evidence and inspect the output. Verify exceptions against an attributable owner decision; a waiver string or a worker's claim is not approval or proof.
+Reviewer: verify exceptions against an attributable owner decision; a waiver string or a worker's claim is not approval or proof.
 
 ## Writing like a human
 
@@ -69,17 +69,17 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 ## Prove what you claim
 
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
-- Test the caller's actual failure with a positive control on real data, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
-- Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
+- Test the caller's actual failure with a positive control on real data, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Keep one end-to-end case per role through the real path. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
+- Tests own their state, reach the outcome their names claim, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
 - For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
 - An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one definition for every number and its drill-down.
 - Green CI is not proof when decisive tests were skipped, including skips for missing local data. Read the skip count and run those tests with real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
 
-Read `references/proof-and-debugging.md` for test method, the CI command list and label checks. Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep the unverified label when evidence is missing.
+Read `references/proof-and-debugging.md` for test method and the CI and label checks. Machine: run the named regression at base/head and the required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep the unverified label when evidence is missing.
 
 ## Think before you code or answer
 
-Read current code, logs and earlier decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure is detected. Resolve routine choices from established patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and has one owner.
+Read current code, logs and earlier decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure is detected. Resolve routine choices from established patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and single-owned.
 
 Reviewer: trace load-bearing assumptions to current sources and check their failure handling.
 
@@ -93,13 +93,13 @@ Read `references/review-and-delegation.md` for plan format, dispatch briefs and 
 
 ## Review
 
-A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Verify delegated claims and findings against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Gating claims are checked by running the check yourself; a merge takes only the reviewed head.
+A fresh reader reviews every branch, including one-line changes, with task, diff, constraints and evidence. Access-control changes get an independent review that hunts stale state. Verify delegated claims and findings against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, including lint, typecheck and build, not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Gating claims are checked by running the check yourself; a merge takes only the reviewed head.
 
 Reviewer: confirm each required outcome and counterexample against the final revision, and check approvals and every gate result. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` to dispatch work or review a branch.
 
 ## Commits
 
-One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Use locked dependencies, and pin anything you add.
+One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Use locked dependencies; pin additions.
 
 Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, rewriting history or removing a worktree.
 

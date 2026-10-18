@@ -2,6 +2,18 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.12.0 - 2026-10-18
+
+Subject: craft 1.12.0 adds stale-state review and end-to-end access tests
+
+An independent second-model review found a stale selection that let a departed user read another tenant. Two tests were also weaker than their names: one named "can log in" stopped at a 422, and the permission tests seeded the cache under test.
+
+- Access-control changes get an independent review that hunts stale state: what holds the grant, how long it lives, and what happens when membership changes mid-session.
+- Every test reaches the outcome its name claims.
+- A test that seeds the layer under test proves nothing about it. Keep at least one end-to-end case per role through the real path.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.11.0 - 2026-10-18
 
 Subject: craft 1.11.0 adds meaning-change, scope, drill-down and retest rules

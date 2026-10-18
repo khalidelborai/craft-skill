@@ -2,7 +2,7 @@
 
 Read this when you write or fix a test, prove a change works, or chase a bug. The core rules live in SKILL.md (Debug to the root cause, Prove what you claim). This file adds the methods behind them.
 
-Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; production query probes; a field that changes meaning; scope checks and prerequisites; numbers and their drill-downs; retest evidence; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
+Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; production query probes; a field that changes meaning; scope checks and prerequisites; numbers and their drill-downs; retest evidence; access-control tests; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
 
 ## Name the break before the test
 
@@ -114,6 +114,14 @@ A number and its drill-down share one definition. When a count's matching rule c
 ## Retest evidence
 
 A retest report is a pass/fail table with one row per check. Each row gives the expected value, the result, the exact request and window, the list page used as the oracle, and the automated test id.
+
+## Access-control tests
+
+Every test must reach the outcome its name claims. A test named "can log in" that stops at a 422 on the form before the login step proves nothing about login. Assert the outcome at the named step: a session, a redirect, a 200 with the expected rows.
+
+A test that seeds the layer under test proves nothing about it. A permission test that writes the permission cache directly never runs the real resolution, so the cache hides the bug it should catch. Keep at least one end-to-end case per role through the real path: real login, real resolution, a real request. Seeded tests can cover the edge cases around it.
+
+Each role gets that case, and each role's case checks the other tenants too. Remove a membership in the middle of a session and check that the next request is refused.
 
 ## Side effects after a commit
 
