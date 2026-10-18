@@ -39,7 +39,7 @@ Stop at the first option that holds:
 5. Use one clear line when it works.
 6. Otherwise, the least code that works.
 
-Do not add a speculative interface, factory, flag, config or abstraction. Consolidate duplicated behavior at its shared owner. Prove code dead by searching callers, and keep public contracts and output shapes stable unless the task authorizes the change.
+Don't add speculative interfaces, factories, flags, configs or abstractions. Consolidate duplicates in one owner. Prove code dead by searching callers, and keep public contracts and output shapes stable unless authorized.
 
 Agent: search callers with `rg` and inspect `git diff <base>...HEAD`. Reviewer: require each addition and deletion to serve the task, and keep validation and error handling.
 
@@ -79,7 +79,7 @@ Read `references/proof-and-debugging.md` for test method and CI and label checks
 
 ## Think before you code or answer
 
-Read current code, logs and earlier decisions first. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure shows. Resolve routine choices from existing patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and single-owned.
+Read current code, logs, earlier decisions, and defaults and versions from their source. State consequential assumptions, the premise that could invalidate the design, and how its failure shows. Resolve routine choices from existing patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. A log that stops mid-batch is not completion; re-inventory first. Choose the design that is deterministic, measurable and single-owned.
 
 Reviewer: trace load-bearing assumptions to current sources and check their failure handling.
 
@@ -95,7 +95,7 @@ Read `references/review-and-delegation.md` for plan format, dispatch briefs and 
 
 A fresh reader reviews every branch, one-line changes included, with task, diff, constraints and evidence. Access-control changes get an independent stale-state review. Verify delegated claims against code before repeating them. Refresh checks and review after edits; the verdict names the final revision. Before a merge, the owner checks the verdict, required gates and every CI job, (lint, typecheck, build), not only suites rerun by hand. A red job is fixed, or proven red on the clean base with an owner and an action. A missing required PR body fails its gate. Merge gates fail closed: no required check on the head, no merge. Check gating claims by running the check yourself; a merge takes only the reviewed head.
 
-Reviewer: confirm each required outcome and counterexample against the final revision, and check approvals and every gate result. Unresolved required failures block SHIP; unchecked paths stay explicitly unverified. Read `references/review-and-delegation.md` to dispatch or review.
+Reviewer: confirm each required outcome and counterexample against the final revision, and check approvals and every gate result. Unresolved required failures block SHIP; unchecked paths stay unverified. Read `references/review-and-delegation.md` to dispatch or review.
 
 ## Commits
 

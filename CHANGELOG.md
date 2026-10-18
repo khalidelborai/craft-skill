@@ -2,6 +2,18 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.18.0 - 2026-10-18
+
+Subject: craft 1.18.0 adds rules for test runs and interrupted batches
+
+A read-only test run through a package-manager wrapper started an install and moved installed packages into a hidden folder. A cleanup log that stopped mid-batch looked finished.
+
+- Before a check runs through a wrapper, read the package manager's auto-install settings. Prefer the installed test binary, and don't install or move dependencies just to run a check.
+- A log that stops mid-batch is not completion. The owner approves a destructive batch by name, and the operation guards each item.
+- Restores copy back only absent destinations, and collisions are checked first.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.17.0 - 2026-10-18
 
 Subject: craft 1.17.0 bans stashing in shared repos and fixes shell loops

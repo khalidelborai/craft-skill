@@ -77,6 +77,22 @@ Each worktree gets its own copy of its dependencies. On APFS, `cp -cR` clones a 
 
 A shell loop that changes state counts its successes and never hides its output. An unquoted variable in `for q in $L` is not split into words in zsh, so the loop ran one delete with 46 names joined into one argument, and `>/dev/null` hid the failure. Read the list with `while read -r q; do ...; done <<< "$L"`, count the successes, and print the failures.
 
+## Test runs and installed dependencies
+
+Before you run a check through a package-manager wrapper, read the repo's package manager and its auto-install settings. A wrapper that is meant to be read-only can start an install. A pnpm version that installs automatically moved 146 installed packages into a hidden folder during a check that was supposed to only read.
+
+Prefer the test binary that is already installed. Run it directly, for example `node node_modules/vitest/vitest.mjs`, and report the result as that run. Don't install, move or relocate dependencies just to run a check. If the check cannot run without them, mark it unverified.
+
+After any run, check `git status`. A tracked change that a check caused is a gate, not cleanup.
+
+## Interrupted batch operations
+
+A log that ends mid-batch is not completion. A line such as "before: 228" shows only where the log stopped. Inventory the remaining items fresh, confirm no process still runs against them, and count again. Completion is a fresh count of zero.
+
+To restore files after an interruption, copy back only destinations that are absent, and check for collisions first. Zero collisions is a precondition, not a result.
+
+A destructive batch needs the owner's explicit approval for that exact batch, plus guards in the operation itself: it deletes only empty or unused items, atomically, and refuses anything it did not expect.
+
 ## One-off scripts and processes
 
 A one-off Laravel script is a standalone PHP file that boots the kernel itself: require the autoloader, build the app from `bootstrap/app.php`, then bootstrap the kernel. `php artisan tinker` waits for terminal input, so it hangs in a non-interactive run.
