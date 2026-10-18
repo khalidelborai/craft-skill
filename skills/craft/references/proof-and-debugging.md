@@ -2,7 +2,7 @@
 
 Read this when you write or fix a test, prove a change works, or chase a bug. The core rules live in SKILL.md (Debug to the root cause, Prove what you claim). This file adds the methods behind them.
 
-Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; production query probes; a field that changes meaning; scope checks and prerequisites; numbers and their drill-downs; retest evidence; access-control tests; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
+Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; acceptance lines and cross-cutting rules; production query probes; a field that changes meaning; scope checks and prerequisites; numbers and their drill-downs; retest evidence; access-control tests; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
 
 ## Name the break before the test
 
@@ -122,6 +122,18 @@ Every test must reach the outcome its name claims. A test named "can log in" tha
 A test that seeds the layer under test proves nothing about it. A permission test that writes the permission cache directly never runs the real resolution, so the cache hides the bug it should catch. Keep at least one end-to-end case per role through the real path: real login, real resolution, a real request. Seeded tests can cover the edge cases around it.
 
 Each role gets that case, and each role's case checks the other tenants too. Remove a membership in the middle of a session and check that the next request is refused.
+
+## Acceptance lines and cross-cutting rules
+
+A Jira acceptance line is a contract. Before you post that it is met, open the shipped screen in the deployed target and check the line against what the user sees. One ticket promised seconds and a time zone, and the screen showed HH:mm. Quote the line in the check table, and mark it met only when the screen shows it.
+
+A cross-cutting rule, such as an access rule for a role or a display format, governs every route that its resolver serves. Inventory those routes before the change:
+
+1. List every caller of the resolver or check that enforces the rule, with file and line.
+2. Read the route table and list every route that reaches those callers, including routes no ticket names.
+3. Put the list in the PR, and test each route with the role the rule names.
+
+A rule applied only in the changes that happened to touch those files reached one of eleven routes. The list in the PR is the proof of coverage.
 
 ## Side effects after a commit
 

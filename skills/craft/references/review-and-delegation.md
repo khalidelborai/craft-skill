@@ -137,4 +137,8 @@ Record each plan change with the reason and the cost if it is wrong. A change ma
 
 A successful send proves that the message was accepted, not that the recipient read it. Confirm the recipient started work before you rely on it. An input the worker must act on, such as a file path or an answer, goes into a fresh dispatch's brief, or the send is confirmed acknowledged. A message sent while the worker was busy may never have been read. One such message waited 30 minutes. A timeout or an empty wait is a checkpoint and not a failure. Only positive evidence stops, abandons or retries work.
 
+A dispatch receipt proves that the worker was created. It does not prove that the worker runs. Within a minute of dispatch, look at the worker's screen. A spinner, a tool call or new output shows work. A worker waiting at a prompt, such as a per-worktree trust or permission prompt, is not running, however long it has existed. Recheck the screen before every status report, and report a worker as running only on that check. A later done message does not repair an earlier silent interval.
+
+One batch of five workers sat at a per-worktree trust prompt for an hour while the coordinator reported them as running. The user caught it. Clear the prompt, and only then report the worker as running.
+
 The coordinator reads every message that is not a heartbeat, of every type. A filter that drops one message type can hide a worker's contract change for an hour. Filter heartbeats only.

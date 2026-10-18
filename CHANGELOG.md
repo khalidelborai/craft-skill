@@ -2,6 +2,19 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.15.0 - 2026-10-18
+
+Subject: craft 1.15.0 checks worker screens, acceptance lines and route sets
+
+A coordinator reported five workers as running for an hour. They sat at a per-worktree trust prompt, and the user caught it. A dispatch receipt proves that a worker was created, not that it runs.
+
+- A worker is reported as running only after its screen shows work, such as a spinner or a tool call. The screen is rechecked before each status report.
+- The orchestration reference covers the check within a minute of dispatch, and the Codex entry names the trust prompt.
+- A Jira acceptance line is checked against the shipped screen before it is posted. One promised seconds and a time zone; the screen showed HH:mm.
+- A cross-cutting rule is applied to every route its resolver serves. The PR lists those routes and tests each one. Applying it only where a change happened to touch the code reached one of eleven routes.
+
+The eval gate runs on the candidate content. The bench does not yet measure this rule, so the gate guards against regression only.
+
 ## 1.14.0 - 2026-10-18
 
 Subject: craft 1.14.0 adds a pre-handoff check list from QA retest rounds
