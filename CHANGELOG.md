@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.14.0 - 2026-10-18
+
+Subject: craft 1.14.0 adds a pre-handoff check list from QA retest rounds
+
+Thirteen checks from a QA lead's retest rounds, in one place for every handoff. Most of them repeat a rule that an earlier lesson added, so the new reference gathers them in the order a tester runs them.
+
+- A new reference lists the checks: each number against an independent oracle, every parameter a user changes, three controls per scope, complements that add up, exact-match drill-downs, normalized keys, UI measurement, API probes, prerequisites on the target, dry and real runs agreeing, cold loads, and a Check, Expected and Result table.
+- SKILL.md points to it before handoff.
+
+The eval gate runs on the candidate content. The bench does not yet measure these checks, so the gate guards against regression only.
+
 ## 1.13.0 - 2026-10-18
 
 Subject: craft 1.13.0 adds input acknowledgement and fail-closed merge gates

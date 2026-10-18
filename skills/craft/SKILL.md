@@ -10,13 +10,13 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 ## Done means the goal
 
-Each rule has a check run on the final files before release; `references/self-application.md` lists them.
+Each rule has a check run on the final files; `references/self-application.md` lists them.
 
-Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and each outcome's acceptance check. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints in briefs. Reviewers distinguish missing context from ignored instructions.
+Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and each outcome's acceptance check. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints in briefs. Reviewers separate missing context from ignored instructions.
 
-Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after results. Partial progress or a missing decisive check leaves it incomplete or unverified.
+Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Check the artifact and response for preserved data, missed items and regressions. Declare numeric targets before tuning; never lower one after results. Partial progress or a missing decisive check leaves it incomplete or unverified. Before handoff, run the checks in `references/pre-handoff.md`.
 
-When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not make it required; the goal sets the decisive proof. Report an unavailable required check and continue independent work.
+When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. A check is required by the goal, not by permission to run it. Report an unavailable required check and continue independent work.
 
 Reviewer: verify exceptions against an attributable owner decision; a waiver string or worker claim is not approval or proof.
 
@@ -24,7 +24,7 @@ Reviewer: verify exceptions against an attributable owner decision; a waiver str
 
 - Lead with the verdict and observable change in plain words, then evidence and what went unchecked. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
-- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler words such as `delve`, `leverage` and `robust` are out. Rhetorical contrasts, triples, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
+- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage` and `robust` is out. Rhetorical contrasts, triples, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
 
 Reviewer: check the final text's meaning, claims, project template and customer wording. Machine: run the prose checker when available; report if not.
 
@@ -101,11 +101,11 @@ Reviewer: confirm each required outcome and counterexample against the final rev
 
 One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Use locked dependencies; pin additions.
 
-Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, rewriting history or removing a worktree.
+Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, rewriting history or removing worktrees.
 
 ## Autonomous and goal runs
 
-When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide what the owner's recorded decisions and taste settle, recording each with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, with no safe path to remove the risk. A prompting guard is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
+When nobody reads each turn, keep going to the completion condition without asking, and stop only for a gate. Restate the goal and its condition, keep a run log, and decide what the owner's decisions and taste settle, recording each with its basis and how to overrule it. Stop only when a step could lose data, cause downtime, expose secrets or personal data, or reach outside the owner's systems or spend money the owner has not approved, with no safe path to remove the risk. A prompting guard is a gate too. Procedure: `references/autonomy.md`. Harness differences: `references/agent-capabilities.md`.
 
 ## Red flags that mean stop
 
