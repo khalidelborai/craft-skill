@@ -34,6 +34,7 @@ Check the suite on the tree you will integrate. A green run proves only the tree
 - Name the command you ran, the revision, the exit status and the relevant output. A status code alone is not proof of the goal.
 - For a delegated result, check the diff or the artifact before you repeat the claim. An agent's "done" is a claim.
 - If a check could not run, say so and leave the outcome marked unverified.
+- Test against a base without stashing in a shared repo: use a second detached worktree at the base commit, or write the base version of the files involved to scratch.
 
 ### Cherry-picks to another base
 

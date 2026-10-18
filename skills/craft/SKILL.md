@@ -24,7 +24,7 @@ Reviewer: verify exceptions against an attributable owner decision; a waiver str
 
 - Lead with the verdict and observable change in plain words, then evidence and what went unchecked. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
-- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve` and `leverage` is out. Rhetorical contrasts, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
+- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve` is out. Rhetorical contrasts and assistant voice are out. Read `references/writing.md` before shipping prose.
 
 Reviewer: check the final text's meaning, claims, project template and customer wording. Machine: run the prose checker when available; report if not.
 
@@ -71,7 +71,7 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
 - Test the caller's actual failure with a positive control on real data, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Keep one end-to-end case per role through the real path. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
 - Tests own their state, reach the outcome their names claim, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
-- For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A cherry-pick is proven on its target base. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
+- For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A cherry-pick is proven on its target base, never by stashing in a shared repo. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
 - An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, against each acceptance line, with one definition for every number and its drill-down.
 - Green CI is not proof when decisive tests were skipped, including skips for missing local data. Read the skip count and run those tests with real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
 
@@ -79,13 +79,13 @@ Read `references/proof-and-debugging.md` for test method and CI and label checks
 
 ## Think before you code or answer
 
-Read current code, logs and earlier decisions before deciding. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure shows. Resolve routine choices from existing patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and single-owned.
+Read current code, logs and earlier decisions first. Read defaults, config and versions from their actual source. State consequential assumptions, the premise that could invalidate the design, and how its failure shows. Resolve routine choices from existing patterns; surface a consequential ambiguity or authorization gate. Unattended, log an ambiguity with its basis and report it at the end, unless it is a gate. Choose the design that is deterministic, measurable and single-owned.
 
 Reviewer: trace load-bearing assumptions to current sources and check their failure handling.
 
 ## Plans and decisions
 
-Executable plans resolve every name, contract, value and test the implementer cannot choose; no placeholders. Before parallel workers build both sides of an interface, freeze the contract as an artifact with example payloads for every status and error, and test both sides against it. Record consequential decisions with their reason and cost if wrong. Keep durable progress for multi-sitting work: revision, checks, decisions, remaining work and resume steps.
+Executable plans resolve every name, contract, value and test the implementer cannot choose; no placeholders. Before parallel workers build both sides of an interface, freeze the contract as an artifact with example payloads for every status and error, and test both sides against it. Record consequential decisions with their reason and cost if wrong. Keep durable progress across sittings: revision, checks, decisions and resume steps.
 
 Report a worker as running only when its screen shows work, and recheck before each status. Send status on the assigned channel on cadence. Report an obstacle with the next action, and keep independent work moving.
 
@@ -101,7 +101,7 @@ Reviewer: confirm each required outcome and counterexample against the final rev
 
 One logical change per commit. The scoped subject states behavior; the body records symptom, measured root cause, fix, deliberate limits and proof. Use locked dependencies; pin additions.
 
-Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, rewriting history or removing worktrees.
+Agent: inspect `git show --format=fuller --stat`. Reviewer: compare the commit's claims with the diff and recorded evidence. Read `references/git-and-safety.md` before staging, pushing, stashing, rewriting history or removing worktrees.
 
 ## Autonomous and goal runs
 

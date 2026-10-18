@@ -46,6 +46,7 @@ Use one worktree per task and treat it as disposable. The branch holds the work.
 - Before you create a worktree, confirm that the project-local worktree directory is ignored by git. Creating one that is not ignored leaves untracked state in the repo.
 - Prefer the repo's worktree helper if it has one. A raw `git worktree add` is the fallback.
 - Build output (`target/`, `node_modules/`, `dist/`) is per worktree and is not shared. Delete it when the branch is merged or abandoned.
+- Never `git stash` in a worktree of a shared repo. All worktrees share one stash list. A stash that saved nothing, followed by a pop, applies another worktree's older entry on top of your branch. To test against the base, write the base version of the few files involved to a scratch path, or use a second detached worktree at the base commit.
 
 ### Removing a worktree is a data-loss gate
 
@@ -73,6 +74,8 @@ Never remove or nest a worktree that the current task did not create.
 A helper script validates its arguments and stops at the first failed step: `set -euo pipefail`, and check each path before the first write. Never let a pipeline hide a failure. A `cd` that fails inside `cmd | tail` exits 0, and the script runs on in the wrong directory.
 
 Each worktree gets its own copy of its dependencies. On APFS, `cp -cR` clones a directory at almost no disk cost. A symlinked vendor directory loads the sibling worktree's code, so a test in one worktree can exercise another one's code. Before trusting a result, confirm which file a class loads from with a reflection check, for example `(new ReflectionClass(Foo::class))->getFileName()` in PHP or `__file__` in Python.
+
+A shell loop that changes state counts its successes and never hides its output. An unquoted variable in `for q in $L` is not split into words in zsh, so the loop ran one delete with 46 names joined into one argument, and `>/dev/null` hid the failure. Read the list with `while read -r q; do ...; done <<< "$L"`, count the successes, and print the failures.
 
 ## One-off scripts and processes
 

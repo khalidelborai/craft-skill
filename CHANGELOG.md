@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.17.0 - 2026-10-18
+
+Subject: craft 1.17.0 bans stashing in shared repos and fixes shell loops
+
+Two accidents from one session. A stash in a shared repo applied another worktree's older entry on top of a branch. A zsh loop over an unquoted list ran one delete with every name joined into one argument, and its redirect hid the failure.
+
+- Worktrees of a shared repo share one stash list, so the base is tested in a second detached worktree or from scratch copies of the files involved.
+- A shell loop that changes state reads its list with `while read -r`, counts its successes and prints its failures.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.16.0 - 2026-10-18
 
 Subject: craft 1.16.0 proves a cherry-pick on its target base, not the source
