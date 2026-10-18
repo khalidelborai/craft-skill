@@ -2,6 +2,19 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.11.0 - 2026-10-18
+
+Subject: craft 1.11.0 adds meaning-change, scope, drill-down and retest rules
+
+Overnight retests of one build found four defect shapes that the earlier rules did not name.
+
+- A value that changes meaning is changed in every operator that touches it, and tested with the parameters users set. The list page for the same window is the oracle.
+- A scope or filter check needs a positive control on real staging data. A ticket's prerequisites are verified on the target before it counts as shipped.
+- A number and its drill-down share one definition, and the click-through total is tested against the number clicked.
+- A retest report is a pass/fail table with the exact request, the window, the oracle and the automated test id.
+
+The eval gate runs on the candidate content. The bench does not yet measure these rules, so the gate guards against regression only.
+
 ## 1.10.0 - 2026-10-17
 
 Subject: craft 1.10.0 adds probes, helper-script, skip and cross-service rules

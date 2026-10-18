@@ -12,9 +12,9 @@ Say only what's true, make the simplest change that holds, and prove it. An agen
 
 Each rule has a check run on the final files before release; `references/self-application.md` lists them.
 
-Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit can state its outcome and check in the existing summary; it needs no separate checklist or new runtime test. Coordinators restate binding constraints and name required sources in briefs. Reviewers distinguish missing context from ignored instructions.
+Before a nontrivial change, PR or delegated task, record required outcomes, binding constraints, affected callers and the acceptance check for each outcome. A trivial edit states its outcome and check in its summary; no separate checklist is needed. Coordinators restate binding constraints and name required sources in briefs. Reviewers distinguish missing context from ignored instructions.
 
-Success means each required outcome is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric targets before tuning, and never lower one after seeing results. Partial progress or a missing decisive check leaves it incomplete or unverified.
+Success means each required outcome and prerequisite is proved on the candidate code. Green tests, HTTP 200, an ok receipt or a rendered page prove only those events. Before reporting done, run the CI job's exact commands and name each in the evidence. Inspect the resulting artifact and response, preserved data, missed items and regressions. Declare numeric targets before tuning, and never lower one after seeing results. Partial progress or a missing decisive check leaves it incomplete or unverified.
 
 When behavior depends on a model, provider or runtime, exercise the failing scenario on the approved target, effective config and actual execution path. A substitute proves only itself unless equivalence is established for the claim. Do not bypass an access/provider restriction to make a blocked check run. Permission to run a check does not make it required; the goal sets the decisive proof. Report an unavailable required check and continue independent work.
 
@@ -24,7 +24,7 @@ Reviewer: trace each required outcome to final-revision evidence and inspect the
 
 - Lead with the verdict and observable change in plain words, then evidence and what went unchecked. Keep citations and facts. Identify internal-only work plainly; a filename is not a customer outcome.
 - Use sentences with verbs, natural contractions and varied structure. Avoid default bolded-lead-in lists and repeated templates.
-- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler such as `delve`, `leverage`, `robust`, `seamless`, `comprehensive`, `crucial`, `notably` and `genuinely` is out. Rhetorical contrasts, triples, assistant voice and essay furniture are out too. Read `references/writing.md` before shipping prose.
+- Use straight quotes and ordinary punctuation, no em/en dashes or ellipsis character. Filler words such as `delve`, `leverage` and `robust` are out. Rhetorical contrasts, triples, assistant voice and essay furniture are out. Read `references/writing.md` before shipping prose.
 
 Reviewer: check the final text's meaning, claims, project template and customer wording. Machine: run the prose checker when available; report if not.
 
@@ -51,7 +51,7 @@ Agent: inspect `git diff <base>...HEAD` and `git show --stat`. Reviewer: check s
 
 ## Build it to hold
 
-- Fail closed at trust boundaries: bad input, uncertain identity, missing validation or ambiguous acknowledgement cannot become success or silent repair. Bound every input, so a bad value gets a clear client error with no framework text.
+- Fail closed at trust boundaries: bad input, uncertain identity, missing validation or ambiguous acknowledgement cannot become success or silent repair. Bound every input: a bad value gets a clear client error with no framework text.
 - Bound external calls at the shared client with connect and operation timeouts and bounded retries. Bound batch work by time and count, with resumable cursors. Never turn a required bound off or disable a failing feature as its fix.
 - Helper scripts validate their arguments and stop at the first failed step.
 - Cancellation must propagate, stale async results must be discarded, and children must be reaped in cleanup. Verify bytes rather than declared sizes; acknowledge only durable writes and verify matching content before replacing a destination. Mask sensitive output. Comments and receipts state only what the code proves; a tuned knob names its ceiling and upgrade condition.
@@ -69,10 +69,10 @@ Reviewer: require a reproduction that reaches the failing stage and an explanati
 ## Prove what you claim
 
 - For a bug, write and run the regression before the fix; it fails for the reported behavior, then passes with the fix. Refactors need before/after contract checks; new nontrivial behavior needs a focused test.
-- Test the caller's actual failure, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
+- Test the caller's actual failure with a positive control on real data, including state orderings, limits, data preservation, and every role, other tenant and anonymous caller that can reach the path, not only the roles the ticket names. Remove a behavior guard in scratch and require the regression to fail, then restore it and require a pass. This mutation test does not prove target-environment behavior or authorize bypassing access/provider restrictions.
 - Tests own their state, clean up global effects and hold in CI without secrets. For performance, count work such as queries or allocations, not elapsed time.
 - For each quoted result, record command, revision, effective config, source/test provenance, exit status and relevant redacted output or log reference. A red run failing in setup or importing the wrong revision proves nothing about the bug. Re-run the original failing command on the final candidate before claiming the fix.
-- An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one source for every number shown.
+- An output requirement covers every surface the user sees and every product it names: rendered pages, exports, emails and UI text. Deferring a surface is an owner question, asked before building. Check the deployed target as the user sees it, in every state and language, with one definition for every number and its drill-down.
 - Green CI is not proof when decisive tests were skipped, including skips for missing local data. Read the skip count and run those tests with real dependencies on the target runtime. Prove a local end-to-end run's listener is the tested process, and give parallel workers their own ports.
 
 Read `references/proof-and-debugging.md` for test method, the CI command list and label checks. Machine: run the named regression at base/head and the project's required suites. Reviewer: confirm the failure assertion, executed source and final test population, not only the count or exit status. Keep the unverified label when evidence is missing.

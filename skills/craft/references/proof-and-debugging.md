@@ -2,7 +2,7 @@
 
 Read this when you write or fix a test, prove a change works, or chase a bug. The core rules live in SKILL.md (Debug to the root cause, Prove what you claim). This file adds the methods behind them.
 
-Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; production query probes; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
+Contents: the break before the test; regression proof; the whole suite; verification and claims; acceptance on the surface the user sees; skipped tests and the target runtime; local end-to-end listeners; the CI job's own commands and labels that name who acted; visibility across surfaces; production query probes; a field that changes meaning; scope checks and prerequisites; numbers and their drill-downs; retest evidence; side effects after a commit; reproduce before attributing; claims in the interface; what done includes; defect patterns and their checks; the debugging method; waiting on conditions; lean code and its checks; tuned knobs and debt.
 
 ## Name the break before the test
 
@@ -94,6 +94,26 @@ A staging database can differ from production in engine and version. One build r
 2. A count on real data, checked against an independent recount by a second query or method.
 
 Print only counts. Mask identifiers, and do not print the records.
+
+## When a field changes meaning
+
+When a value changes what it means (an import date becomes a breach date, for example), change every operator that touches it in the same work: filter, group, sort, count and export. A change to one of them leaves the others answering a different question.
+
+Test with the parameters users actually set (a date range, a domain pick, a language), not only the default view. Use the list page for the same window as the oracle: its totals must match the report's totals under the same filters.
+
+## Scope checks and prerequisites
+
+Every scope or filter check needs a positive control on real staging data: the owner sees its own rows, with the expected counts. A negative check alone can pass while the filter blanks the owner's own data. One ticket shipped that way, with another org's 404 as the only evidence.
+
+Before calling a ticket shipped, verify its prerequisites on the target environment: backfills ran, flags are set, and seed data exists.
+
+## Numbers and their drill-downs
+
+A number and its drill-down share one definition. When a count's matching rule changes (exact, case-insensitive, scoped), change the drill-down filter in the same work. Test that the click-through total equals the number that was clicked.
+
+## Retest evidence
+
+A retest report is a pass/fail table with one row per check. Each row gives the expected value, the result, the exact request and window, the list page used as the oracle, and the automated test id.
 
 ## Side effects after a commit
 
