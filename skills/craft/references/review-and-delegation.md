@@ -65,6 +65,14 @@ Reviewer rules:
 
 Report the review with the verdict first, then the findings in order of severity, then what the reviewer did not check.
 
+## Reusing UI components
+
+UI work reuses the product's existing components and patterns before it builds anything new. Search for the component first, and reuse it as it is. A new screen that needs a card, a table, a filter or a dialog uses the one the product already has.
+
+When the right component lives in one product module and another module needs it, move it to the shared library both modules import, and repoint every caller to that copy. One owner holds the component. Copying it, or writing a lookalike with the same look, creates two components that drift apart. Nothing in the move is optional: the old location is removed, so no second copy remains.
+
+Example: a review step was asked to match the new dashboards' cards. The card component lived in one module, so it moved to the shared theme library, and the review step and the dashboards both import it from there.
+
 ## Checking every CI job before a merge
 
 The suites you ran by hand are not the whole gate. Before a merge, list every check on the PR with `gh pr checks <number>` and read each job, including lint, typecheck and build. For each red job:

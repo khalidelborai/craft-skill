@@ -33,13 +33,13 @@ Reviewer: check the final text's meaning, claims, project template and customer 
 Stop at the first option that holds:
 
 1. Skip a speculative feature and say why in one line.
-2. Reuse the codebase's helper, type or pattern.
+2. Reuse the codebase's helper, type, component or pattern.
 3. Use the standard library or platform.
 4. Use an installed dependency; add one only for a demonstrated need.
 5. Use one clear line when it works.
 6. Otherwise, the least code that works.
 
-Don't add speculative interfaces, factories, flags, configs or abstractions. Consolidate duplicates in one owner. Prove code dead by searching callers, and keep public contracts and output shapes stable unless authorized.
+Don't add speculative interfaces, factories, flags or configs. Consolidate duplicates at one owner. UI components count too. Prove code dead by searching callers, and keep contracts and output shapes stable unless authorized.
 
 Agent: search callers with `rg` and inspect `git diff <base>...HEAD`. Reviewer: require each addition and deletion to serve the task, and keep validation and error handling.
 

@@ -2,6 +2,17 @@
 
 Each release lists what changed and why, newest first.
 
+## 1.19.0 - 2026-10-20
+
+Subject: craft 1.19.0 reuses existing UI components and moves shared ones
+
+A review step was asked to match the new dashboards' cards, and the card lived in one product module. The rule now says UI work reuses existing components before it builds new ones.
+
+- UI work reuses the product's components and patterns first, as they are.
+- A component that another module needs moves to the shared library, and every caller is repointed to it. No copy or lookalike remains.
+
+The eval gate runs on the candidate content. The bench does not yet measure this rule, so the gate guards against regression only.
+
 ## 1.18.0 - 2026-10-18
 
 Subject: craft 1.18.0 adds rules for test runs and interrupted batches
